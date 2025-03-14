@@ -1,7 +1,11 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import setImg from "@/lib/imgSetter";
 import Link from "next/link";
 import React from "react";
+
+console.log(setImg());
 
 export default function Page() {
   return (
@@ -32,7 +36,11 @@ export default function Page() {
         <h3 className="font-bold text-lg text-center">Top Offers</h3>
         <div className="!pt-8 grid grid-cols-7 gap-6">
           {Array.from(Array(7).keys()).map((item, index) => (
-            <div key={index} className="wfull h-[200px] bg-gray-400"></div>
+            <div
+              key={index}
+              className="wfull h-[200px] bg-gray-400"
+              style={{ backgroundImage: `${setImg()}` }}
+            ></div>
           ))}
         </div>
       </div>
@@ -40,7 +48,11 @@ export default function Page() {
         <h3 className="font-bold text-lg text-center">Today's trends</h3>
         <div className="!pt-8 grid grid-cols-4 gap-6">
           {Array.from(Array(10).keys()).map((item, index) => (
-            <div key={index} className="wfull h-[200px] bg-gray-400"></div>
+            <div
+              key={index}
+              className="wfull h-[200px] bg-gray-400"
+              style={{ backgroundImage: `${setImg()}` }}
+            ></div>
           ))}
         </div>
       </div>
@@ -48,7 +60,11 @@ export default function Page() {
         <h3 className="font-bold text-lg text-center">Active farms</h3>
         <div className="!pt-8 grid grid-cols-4 gap-6">
           {Array.from(Array(4).keys()).map((item, index) => (
-            <div key={index} className="wfull h-[200px] bg-gray-400"></div>
+            <div
+              key={index}
+              className="wfull h-[200px] bg-gray-400"
+              style={{ backgroundImage: `${setImg()}` }}
+            ></div>
           ))}
         </div>
       </div>
@@ -56,7 +72,11 @@ export default function Page() {
         <h3 className="font-bold text-lg text-center">Farmers you may know</h3>
         <div className="!pt-8 grid grid-cols-6 gap-6">
           {Array.from(Array(6).keys()).map((item, index) => (
-            <div key={index} className="wfull h-[200px] bg-gray-400"></div>
+            <div
+              key={index}
+              className="wfull h-[200px] bg-gray-400"
+              style={{ backgroundImage: `${setImg()}` }}
+            ></div>
           ))}
         </div>
       </div>

@@ -1,3 +1,5 @@
+"use client";
+import setImg from "@/lib/imgSetter";
 import React from "react";
 
 export default function Page() {
@@ -10,19 +12,13 @@ export default function Page() {
         </p>
       </div>
       <div className="grid grid-cols-5 gap-6">
-        <div className="w-full h-[200px] bg-zinc-200 rounded-xl shadow-sm"></div>
-        <div className="w-full h-[200px] bg-zinc-200 rounded-xl shadow-sm"></div>
-        <div className="w-full h-[200px] bg-zinc-200 rounded-xl shadow-sm"></div>
-        <div className="w-full h-[200px] bg-zinc-200 rounded-xl shadow-sm"></div>
-        <div className="w-full h-[200px] bg-zinc-200 rounded-xl shadow-sm"></div>
-        <div className="w-full h-[200px] bg-zinc-200 rounded-xl shadow-sm"></div>
-        <div className="w-full h-[200px] bg-zinc-200 rounded-xl shadow-sm"></div>
-        <div className="w-full h-[200px] bg-zinc-200 rounded-xl shadow-sm"></div>
-        <div className="w-full h-[200px] bg-zinc-200 rounded-xl shadow-sm"></div>
-        <div className="w-full h-[200px] bg-zinc-200 rounded-xl shadow-sm"></div>
-        <div className="w-full h-[200px] bg-zinc-200 rounded-xl shadow-sm"></div>
-        <div className="w-full h-[200px] bg-zinc-200 rounded-xl shadow-sm"></div>
-        <div className="w-full h-[200px] bg-zinc-200 rounded-xl shadow-sm"></div>
+        {Array.from(Array(7).keys()).map((i) => (
+          <div
+            key={i}
+            className="w-full h-[200px] bg-zinc-200 rounded-xl shadow-sm"
+            style={{ backgroundImage: `${setImg()}` }}
+          ></div>
+        ))}
       </div>
     </main>
   );

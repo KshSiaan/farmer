@@ -1,5 +1,7 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import setImg from "@/lib/imgSetter";
 import { SearchIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -21,10 +23,11 @@ export default function Page() {
       </div>
       <div className="grid grid-cols-5 gap-6">
         {Array.from(Array(7).keys()).map((i) => (
-          <Link href="product/bleh">
+          <Link href="product/bleh" key={i}>
             <div
               key={i}
               className="w-full h-[200px] bg-zinc-200 rounded-xl shadow-sm"
+              style={{ backgroundImage: `${setImg()}` }}
             ></div>
           </Link>
         ))}
