@@ -1,105 +1,154 @@
-"use client";
-
-import { Tractor } from "lucide-react";
-import Link from "next/link";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import React from "react";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "../ui/sheet";
+import {
+  User,
+  LayoutDashboard,
+  Sprout,
+  Package,
+  ShieldCheck,
+  Settings2,
+  TractorIcon,
+  EllipsisIcon,
+} from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+const NavLinks = [
+  { label: "Marketplace", key: "market" },
+  { label: "Farms", key: "farms" },
+  { label: "Investors", key: "investors" },
+  { label: "Insurance", key: "insurance" },
+];
+
+const profLinks = [
+  {
+    label: "Dashboard",
+    key: "dashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    label: "My account",
+    key: "profile",
+    icon: User,
+  },
+
+  {
+    label: "My Farms",
+    key: "my-farms",
+    icon: Sprout,
+  },
+  {
+    label: "Products",
+    key: "my-products",
+    icon: Package,
+  },
+  {
+    label: "My insurances",
+    key: "my-insurance",
+    icon: ShieldCheck,
+  },
+
+  {
+    label: "Settings",
+    key: "settings",
+    icon: Settings2,
+  },
+];
 
 export default function Navbar() {
-  const navLinks = [
-    {
-      label: "Invest",
-      key: "invest",
-      children: [
-        { label: "Opportunities", key: "investment-opportunities" },
-        { label: "Insurance", key: "insurance" },
-      ],
-    },
-    {
-      label: "Farming",
-      key: "farming",
-      children: [
-        { label: "Monitoring", key: "farm-monitoring" },
-        { label: "Marketplace", key: "marketplace" },
-      ],
-    },
-    {
-      label: "Manage",
-      key: "manage",
-      children: [
-        { label: "Logistics", key: "logistics" },
-        { label: "Investor", key: "investor-dashboard" },
-        { label: "Farmer", key: "farmer-dashboard" },
-      ],
-    },
-    { label: "Contact Us", key: "contact-us" },
-  ];
-
   return (
-    <nav className="sticky top-0 z-40 h-16 border-b !px-6 flex items-center justify-between bg-background">
-      <div className="flex items-center gap-4">
-        <Link
-          href="/"
-          className="font-black flex items-center gap-0 text-green-600"
-        >
-          Farmer <Tractor size={18} />
-        </Link>
+    <nav className="h-[64px] w-dvw shadow-sm flex flex-row justify-between items-center !px-6">
+      <div className="flex flex-row justify-start items-center gap-4 md:gap-12">
+        <h1 className="font-bold text-sm text-green-700">
+          <Link href={"/"} className="flex flex-row justify-start items-center">
+            FARMER <TractorIcon />
+          </Link>
+        </h1>
+        <ul className="flex flex-row justify-start items-center gap-4 text-sm font-bold">
+          {NavLinks.map((item, i) => (
+            <li key={i} className="hover:underline">
+              <Link href={`/` + item.key}>{item.label}</Link>
+            </li>
+          ))}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                className="text-sm font-bold hover:!bg-transparent !px-0"
+              >
+                More
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem asChild>
+                <Link href="/terms">Terms and Conditions</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/privacy">Privacy policy</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/about">About us</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </ul>
       </div>
 
-      <NavigationMenu>
-        <NavigationMenuList className="flex gap-6 text-sm font-bold">
-          {navLinks.map((item) =>
-            item.children ? (
-              <NavigationMenuItem key={item.key}>
-                <NavigationMenuTrigger className="cursor-pointer !px-4">
-                  {item.label}
-                </NavigationMenuTrigger>
-                <NavigationMenuContent className="!p-0">
-                  <ul className="grid w-[400px] gap-3 !p-4">
-                    {item.children.map((child) => (
-                      <li key={child.key}>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href={`/${child.key}`}
-                            className="block select-none !py-4 !space-y-1 rounded-md !p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                          >
-                            <div className="text-sm font-medium leading-none">
-                              {child.label}
-                            </div>
-                          </Link>
-                        </NavigationMenuLink>
+      <div className="flex flex-row justify-end items-center gap-6 text-sm font-bold">
+        {/* <Button variant="farm">Login</Button>
+        <Button>Sign in</Button> */}
+        <div className="flex justify-end items-center gap-3">
+          <Link href="/profile" className="hover:underline">
+            Porter Robinson
+          </Link>
+          <Sheet>
+            <SheetTrigger asChild>
+              <div className="size-10 bg-zinc-300 rounded-full flex justify-center items-center text-zinc-500 cursor-pointer">
+                PR
+              </div>
+            </SheetTrigger>
+            <SheetContent className="w-[400px] sm:w-[540px]">
+              <SheetHeader>
+                <SheetTitle>Porter Robinson</SheetTitle>
+                <div className="!py-4">
+                  <ul className="text-sm font-semibold !space-y-4 text-zinc-600 list-inside">
+                    {profLinks.map((item, i) => (
+                      <li
+                        key={i}
+                        className="flex flex-row justify-start items-center gap-2 hover:text-zinc-900"
+                      >
+                        <item.icon className="size-4" />
+                        <Link href={item.key}>{item.label}</Link>
                       </li>
                     ))}
+                    <li className="flex flex-row justify-start items-center gap-2 hover:text-zinc-900">
+                      <Button
+                        className="w-full hover:bg-red-600/90 hover:text-background"
+                        variant="outline"
+                      >
+                        Log out
+                      </Button>
+                    </li>
                   </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            ) : (
-              <NavigationMenuItem key={item.key}>
-                <Link href={`/${item.key}`} legacyBehavior passHref>
-                  <NavigationMenuLink className="font-semibold !px-4 !py-2">
-                    {item.label}
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-            )
-          )}
-        </NavigationMenuList>
-      </NavigationMenu>
-
-      <div className="flex items-center gap-2">
-        <Button className="!px-4 bg-green-600 hover:bg-green-700" asChild>
-          <Link href="/login">Log in</Link>
-        </Button>
-        <Button className="!px-4" variant="outline" asChild>
-          <Link href="/signup">Sign up</Link>
-        </Button>
+                </div>
+              </SheetHeader>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </nav>
   );
