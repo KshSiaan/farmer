@@ -45,7 +45,7 @@ export default function Page() {
         </div>
       </div>
       <div className="!py-8 !px-6 w-screen h-auto">
-        <h3 className="font-bold text-lg text-center">Today's trends</h3>
+        <h3 className="font-bold text-lg text-center">Today&apos;s trends</h3>
         <div className="!pt-8 grid grid-cols-4 gap-6">
           {Array.from(Array(10).keys()).map((item, index) => (
             <div
