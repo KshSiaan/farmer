@@ -16,22 +16,22 @@ import {
   ShieldCheck,
   Settings2,
   TractorIcon,
-  EllipsisIcon,
 } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuTrigger,
+// } from "@/components/ui/dropdown-menu";
 
 const NavLinks = [
+  { label: "About", key: "about" },
+  { label: "Team", key: "team" },
   { label: "Marketplace", key: "market" },
   { label: "Farms", key: "farms" },
   { label: "Investors", key: "investors" },
   { label: "Insurance", key: "insurance" },
+  { label: "Impact", key: "impact" },
 ];
 
 const profLinks = [
@@ -78,22 +78,22 @@ export default function Navbar() {
             FARMER <TractorIcon />
           </Link>
         </h1>
-        <ul className="flex flex-row justify-start items-center gap-4 text-sm font-bold">
+        <ul className="flex flex-row justify-start items-center gap-4 font-semibold">
           {NavLinks.map((item, i) => (
             <li key={i} className="hover:underline">
               <Link href={`/` + item.key}>{item.label}</Link>
             </li>
           ))}
-          <DropdownMenu>
+          {/* <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
-                className="text-sm font-bold hover:!bg-transparent !px-0"
+                className="font-semibold text-base hover:!bg-transparent !px-0"
               >
                 More
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
+            <DropdownMenuContent className="text-base font-semibold">
               <DropdownMenuItem asChild>
                 <Link href="/terms">Terms and Conditions</Link>
               </DropdownMenuItem>
@@ -104,22 +104,24 @@ export default function Navbar() {
                 <Link href="/about">About us</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
-          </DropdownMenu>
+          </DropdownMenu> */}
         </ul>
       </div>
 
-      <div className="flex flex-row justify-end items-center gap-6 text-sm font-bold">
+      <div className="flex flex-row justify-end items-center gap-6 font-semibold">
         {/* <Button variant="farm">Login</Button>
         <Button>Sign in</Button> */}
-        <div className="flex justify-end items-center gap-3">
-          <Link href="/profile" className="hover:underline">
-            Porter Robinson
-          </Link>
+        <div className="flex justify-end items-center">
           <Sheet>
             <SheetTrigger asChild>
-              <div className="size-10 bg-zinc-300 rounded-full flex justify-center items-center text-zinc-500 cursor-pointer">
-                PR
-              </div>
+              <span className="flex flex-row justify-end items-center gap-3">
+                <span className="hover:underline cursor-pointer">
+                  Porter Robinson
+                </span>
+                <div className="size-10 bg-zinc-300 rounded-full flex justify-center items-center text-zinc-500 cursor-pointer">
+                  PR
+                </div>
+              </span>
             </SheetTrigger>
             <SheetContent className="w-[400px] sm:w-[540px]">
               <SheetHeader>
