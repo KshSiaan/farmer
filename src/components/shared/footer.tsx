@@ -11,11 +11,11 @@ export default function Footer() {
 
             <div className="!space-y-1">
               <p className="text-gray-700">Email</p>
-              <p className="text-gray-900">info@ifarmer.asia</p>
+              <p className="text-gray-900">info@farmer.asia</p>
             </div>
 
             <div className="!space-y-1">
-              <p className="text-gray-700">iFarmer Helpline (Free Call)</p>
+              <p className="text-gray-700">Farmer Helpline (Free Call)</p>
               <div className="flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -291,7 +291,7 @@ export default function Footer() {
         {/* Bottom Section with Copyright and Social Icons */}
         <div className="!mt-12 !pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-600 !mb-4 md:!mb-0">
-            Copyright ©2025 <span className="font-medium">iFarmer Limited</span>
+            Copyright ©2025 <span className="font-medium">Farmer Limited</span>
           </p>
 
           <div className="flex !space-x-6">

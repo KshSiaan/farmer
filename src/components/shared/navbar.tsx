@@ -69,7 +69,7 @@ const profLinks = [
   },
 ];
 
-export default function Navbar() {
+export default function Navbar({}) {
   return (
     <nav className="h-[64px] w-dvw shadow-sm flex flex-row justify-between items-center !px-6">
       <div className="flex flex-row justify-start items-center gap-4 md:gap-12">
