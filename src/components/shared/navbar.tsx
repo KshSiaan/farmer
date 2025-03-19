@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
 import {
@@ -17,6 +16,8 @@ import {
   Settings2,
   TractorIcon,
 } from "lucide-react";
+import Logout from "./sub/logout";
+import { Button } from "../ui/button";
 // import {
 //   DropdownMenu,
 //   DropdownMenuContent,
@@ -69,7 +70,9 @@ const profLinks = [
   },
 ];
 
-export default function Navbar({}) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function Navbar() {
+  const user = null;
   return (
     <nav className="h-[64px] w-dvw shadow-sm flex flex-row justify-between items-center !px-6">
       <div className="flex flex-row justify-start items-center gap-4 md:gap-12">
@@ -109,48 +112,52 @@ export default function Navbar({}) {
       </div>
 
       <div className="flex flex-row justify-end items-center gap-6 font-semibold">
-        {/* <Button variant="farm">Login</Button>
-        <Button>Sign in</Button> */}
-        <div className="flex justify-end items-center">
-          <Sheet>
-            <SheetTrigger asChild>
-              <span className="flex flex-row justify-end items-center gap-3">
-                <span className="hover:underline cursor-pointer">
-                  Porter Robinson
+        {user ? (
+          <div className="flex justify-end items-center">
+            <Sheet>
+              <SheetTrigger asChild>
+                <span className="flex flex-row justify-end items-center gap-3">
+                  <span className="hover:underline cursor-pointer">
+                    Porter Robinson
+                  </span>
+                  <div className="size-10 bg-zinc-300 rounded-full flex justify-center items-center text-zinc-500 cursor-pointer">
+                    PR
+                  </div>
                 </span>
-                <div className="size-10 bg-zinc-300 rounded-full flex justify-center items-center text-zinc-500 cursor-pointer">
-                  PR
-                </div>
-              </span>
-            </SheetTrigger>
-            <SheetContent className="w-[400px] sm:w-[540px]">
-              <SheetHeader>
-                <SheetTitle>Porter Robinson</SheetTitle>
-                <div className="!py-4">
-                  <ul className="text-sm font-semibold !space-y-4 text-zinc-600 list-inside">
-                    {profLinks.map((item, i) => (
-                      <li
-                        key={i}
-                        className="flex flex-row justify-start items-center gap-2 hover:text-zinc-900"
-                      >
-                        <item.icon className="size-4" />
-                        <Link href={item.key}>{item.label}</Link>
+              </SheetTrigger>
+              <SheetContent className="w-[400px] sm:w-[540px]">
+                <SheetHeader>
+                  <SheetTitle>Porter Robinson</SheetTitle>
+                  <div className="!py-4">
+                    <ul className="text-sm font-semibold !space-y-4 text-zinc-600 list-inside">
+                      {profLinks.map((item, i) => (
+                        <li
+                          key={i}
+                          className="flex flex-row justify-start items-center gap-2 hover:text-zinc-900"
+                        >
+                          <item.icon className="size-4" />
+                          <Link href={item.key}>{item.label}</Link>
+                        </li>
+                      ))}
+                      <li className="flex flex-row justify-start items-center gap-2 hover:text-zinc-900">
+                        <Logout />
                       </li>
-                    ))}
-                    <li className="flex flex-row justify-start items-center gap-2 hover:text-zinc-900">
-                      <Button
-                        className="w-full hover:bg-red-600/90 hover:text-background"
-                        variant="outline"
-                      >
-                        Log out
-                      </Button>
-                    </li>
-                  </ul>
-                </div>
-              </SheetHeader>
-            </SheetContent>
-          </Sheet>
-        </div>
+                    </ul>
+                  </div>
+                </SheetHeader>
+              </SheetContent>
+            </Sheet>
+          </div>
+        ) : (
+          <>
+            <Button variant="outline" asChild>
+              <Link href="/login">Login</Link>
+            </Button>
+            <Button variant="farm" asChild>
+              <Link href="/register">Sign in</Link>
+            </Button>
+          </>
+        )}
       </div>
     </nav>
   );
