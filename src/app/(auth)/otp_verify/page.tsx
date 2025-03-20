@@ -18,30 +18,32 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 
 import { postFetcher } from "@/lib/simplifier";
+import { useCookies } from "react-cookie";
 import { useRouter } from "next/navigation";
-import { Mail } from "lucide-react";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 // Define the form validation schema with Zod
 const formSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: "Email is required" })
-    .email({ message: "Invalid email address" }),
+  otp: z.string(),
 });
 
 export default function LoginForm() {
+  const [, setCookie] = useCookies(["token"]);
   const navig = useRouter();
 
   // Initialize form with React Hook Form and Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
+      otp: "",
     },
   });
 
@@ -50,21 +52,20 @@ export default function LoginForm() {
     try {
       console.log(values);
       const call = await postFetcher({
-        link: "/auth/forgot-password",
+        link: "/auth/verify",
         meth: "POST",
         data: values,
       });
       console.log(call);
 
-      // if (call.access_token) {
-      //   setCookie("token", call.access_token);
-      //   navig.push("/");
-      // } else {
-      //   console.log("Token not found");
-      // }
+      if (call.access_token) {
+        setCookie("token", call.access_token);
+        navig.push("/");
+      } else {
+        console.log("Token not found");
+      }
       if (call.status) {
-        localStorage.setItem("tempMail", values.email);
-        navig.push("/otp_verify");
+        navig.push("/");
       }
     } catch (error) {
       console.error(error);
@@ -76,10 +77,10 @@ export default function LoginForm() {
       <Card className="w-full max-w-md border-zinc-200 bg-white shadow-lg">
         <CardHeader className="!space-y-1">
           <CardTitle className="text-2xl font-bold text-zinc-900">
-            Forgot Password
+            OTP Verification
           </CardTitle>
           <CardDescription className="text-zinc-500">
-            Enter your email to verify your account
+            The OTP verification mail is sent to your email
           </CardDescription>
         </CardHeader>
         <Form {...form}>
@@ -87,18 +88,24 @@ export default function LoginForm() {
             <CardContent className="!space-y-4">
               <FormField
                 control={form.control}
-                name="email"
+                name="otp"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-zinc-700">Email</FormLabel>
                     <FormControl>
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-2.5 h-5 w-5 text-zinc-400" />
-                        <Input
-                          placeholder="you@example.com"
-                          className="!pl-10 border-zinc-300 focus-visible:ring-green-500"
-                          {...field}
-                        />
+                      <div className="relative w-full flex justify-center items-center">
+                        <InputOTP maxLength={6} {...field}>
+                          <InputOTPGroup>
+                            <InputOTPSlot index={0} />
+                            <InputOTPSlot index={1} />
+                            <InputOTPSlot index={2} />
+                          </InputOTPGroup>
+                          <InputOTPSeparator />
+                          <InputOTPGroup>
+                            <InputOTPSlot index={3} />
+                            <InputOTPSlot index={4} />
+                            <InputOTPSlot index={5} />
+                          </InputOTPGroup>
+                        </InputOTP>
                       </div>
                     </FormControl>
                     <FormMessage className="text-red-500" />

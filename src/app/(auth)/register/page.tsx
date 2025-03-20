@@ -4,7 +4,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2Icon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -53,6 +53,7 @@ const formSchema = z
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
+  const [waiting, setWaiting] = useState<boolean>(false);
   const [, setCookie] = useCookies(["token"]);
   const navig = useRouter();
 
@@ -70,6 +71,7 @@ export default function LoginForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setWaiting(true);
     try {
       console.log("Form submitted with values:", values);
       const call = await postFetcher({
@@ -82,12 +84,14 @@ export default function LoginForm() {
       if (call.access_token) {
         console.log("Setting token and redirecting");
         setCookie("token", call.access_token);
-        navig.push("/");
+        navig.push("/verify_message");
       } else {
         console.log("Token not found in response");
       }
     } catch (error) {
       console.error("Error during form submission:", error);
+    } finally {
+      setWaiting(false);
     }
   }
 
@@ -257,10 +261,17 @@ export default function LoginForm() {
             </CardContent>
             <CardFooter>
               <Button
+                disabled={waiting}
                 type="submit"
                 className="!mt-8 w-full bg-green-600 hover:bg-green-700 text-white"
               >
-                Sign up
+                {waiting ? (
+                  <>
+                    <Loader2Icon className="animate-spin !mr-2" /> Loading..{" "}
+                  </>
+                ) : (
+                  "Sign up"
+                )}
               </Button>
             </CardFooter>
           </form>
