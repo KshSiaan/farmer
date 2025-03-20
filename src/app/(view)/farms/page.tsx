@@ -1,16 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  Filter,
-  MapPin,
-  Star,
-  Users,
-  ChevronDown,
-  ArrowUpRight,
-} from "lucide-react";
+import { MapPin, Star, Users, ArrowUpRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -22,20 +14,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function FarmsPage() {
-  const [, setActiveTab] = useState("all");
-
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
@@ -74,107 +57,12 @@ export default function FarmsPage() {
               Browse farms seeking investment and partnership opportunities
             </p>
           </div>
-          <div className="flex flex-col sm:flex-row gap-2">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="flex items-center gap-1">
-                  <Filter className="h-4 w-4 !mr-1" />
-                  Filter
-                  <ChevronDown className="h-4 w-4 !ml-1" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-[200px]">
-                <DropdownMenuItem>Organic Farms</DropdownMenuItem>
-                <DropdownMenuItem>Livestock</DropdownMenuItem>
-                <DropdownMenuItem>Crop Production</DropdownMenuItem>
-                <DropdownMenuItem>Sustainable Practices</DropdownMenuItem>
-                <DropdownMenuItem>Investment Ready</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="flex items-center gap-1">
-                  Sort By
-                  <ChevronDown className="h-4 w-4 !ml-1" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>Recently Added</DropdownMenuItem>
-                <DropdownMenuItem>Most Popular</DropdownMenuItem>
-                <DropdownMenuItem>
-                  Investment Size: Low to High
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  Investment Size: High to Low
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
         </div>
 
-        <Tabs defaultValue="all" className="!mb-8" onValueChange={setActiveTab}>
-          <TabsList className="!mb-6">
-            <TabsTrigger value="all">All Farms</TabsTrigger>
-            <TabsTrigger value="featured">Featured</TabsTrigger>
-            <TabsTrigger value="organic">Organic</TabsTrigger>
-            <TabsTrigger value="livestock">Livestock</TabsTrigger>
-            <TabsTrigger value="crops">Crops</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="all" className="!mt-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {farms.map((farm) => (
-                <FarmCard key={farm.id} farm={farm} />
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="featured" className="!mt-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {farms
-                .filter((farm) => farm.featured)
-                .map((farm) => (
-                  <FarmCard key={farm.id} farm={farm} />
-                ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="organic" className="!mt-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {farms
-                .filter((farm) => farm.tags.includes("Organic"))
-                .map((farm) => (
-                  <FarmCard key={farm.id} farm={farm} />
-                ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="livestock" className="!mt-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {farms
-                .filter((farm) => farm.tags.includes("Livestock"))
-                .map((farm) => (
-                  <FarmCard key={farm.id} farm={farm} />
-                ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="crops" className="!mt-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {farms
-                .filter((farm) => farm.tags.includes("Crops"))
-                .map((farm) => (
-                  <FarmCard key={farm.id} farm={farm} />
-                ))}
-            </div>
-          </TabsContent>
-        </Tabs>
-
-        <div className="flex justify-center !mt-8">
-          <Button variant="outline" className="gap-1">
-            Load More Farms
-            <ChevronDown className="h-4 w-4 !ml-1" />
-          </Button>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {farms.map((farm) => (
+            <FarmCard key={farm.id} farm={farm} />
+          ))}
         </div>
       </section>
 

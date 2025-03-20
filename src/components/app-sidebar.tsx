@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import {
+  BanknoteIcon,
   BookOpen,
   Bot,
   Frame,
@@ -10,6 +11,7 @@ import {
   Settings2,
   SquareTerminal,
   TractorIcon,
+  VeganIcon,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
@@ -40,9 +42,9 @@ const data = {
   ],
   navMain: [
     {
-      title: "Playground",
+      title: "My farms",
       url: "#",
-      icon: SquareTerminal,
+      icon: VeganIcon,
       isActive: true,
       items: [
         {
@@ -60,9 +62,9 @@ const data = {
       ],
     },
     {
-      title: "Models",
+      title: "Investments",
       url: "#",
-      icon: Bot,
+      icon: BanknoteIcon,
       items: [
         {
           title: "Genesis",
