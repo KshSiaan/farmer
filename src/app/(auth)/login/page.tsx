@@ -62,6 +62,9 @@ export default function LoginForm() {
       });
       console.log(call);
 
+      if (!call.status) {
+        form.setError("password", { message: call.message });
+      }
       if (call.access_token) {
         setCookie("token", call.access_token);
         navig.push("/");
@@ -143,6 +146,7 @@ export default function LoginForm() {
                   </FormItem>
                 )}
               />
+
               <div className="flex items-center justify-between">
                 <div className=""></div>
                 <Link

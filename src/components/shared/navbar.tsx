@@ -8,7 +8,7 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import {
-  User,
+  UserIcon,
   LayoutDashboard,
   Sprout,
   Package,
@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import Logout from "./sub/logout";
 import { Button } from "../ui/button";
+import { User } from "@/types/userType";
 // import {
 //   DropdownMenu,
 //   DropdownMenuContent,
@@ -29,8 +30,7 @@ const NavLinks = [
   { label: "About", key: "about" },
   { label: "Team", key: "team" },
   { label: "Marketplace", key: "market" },
-  { label: "Farms", key: "farms" },
-  { label: "Investors", key: "investors" },
+  { label: "Farms & Investors", key: "farms-investors" },
   { label: "Insurance", key: "insurance" },
   { label: "Impact", key: "impact" },
 ];
@@ -44,7 +44,7 @@ const profLinks = [
   {
     label: "My account",
     key: "profile",
-    icon: User,
+    icon: UserIcon,
   },
 
   {
@@ -70,9 +70,8 @@ const profLinks = [
   },
 ];
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function Navbar() {
-  const user = null;
+export default function Navbar({ user }: { user: User }) {
+  // const user = null;
   return (
     <nav className="h-[64px] w-dvw shadow-sm flex flex-row justify-between items-center !px-6">
       <div className="flex flex-row justify-start items-center gap-4 md:gap-12">
@@ -118,16 +117,16 @@ export default function Navbar() {
               <SheetTrigger asChild>
                 <span className="flex flex-row justify-end items-center gap-3">
                   <span className="hover:underline cursor-pointer">
-                    Porter Robinson
+                    {user.name}
                   </span>
                   <div className="size-10 bg-zinc-300 rounded-full flex justify-center items-center text-zinc-500 cursor-pointer">
-                    PR
+                    {user.name[0]}
                   </div>
                 </span>
               </SheetTrigger>
               <SheetContent className="w-[400px] sm:w-[540px]">
                 <SheetHeader>
-                  <SheetTitle>Porter Robinson</SheetTitle>
+                  <SheetTitle>{user.name}</SheetTitle>
                   <div className="!py-4">
                     <ul className="text-sm font-semibold !space-y-4 text-zinc-600 list-inside">
                       {profLinks.map((item, i) => (
