@@ -1,3 +1,4 @@
+"use server";
 import React from "react";
 import {
   Table,
@@ -11,6 +12,8 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { SquareArrowOutUpRight } from "lucide-react";
+import { getFetcher } from "@/lib/simplifier";
+import { cookies } from "next/headers";
 
 const insurances = [
   {
@@ -31,7 +34,12 @@ const insurances = [
   },
 ];
 
-export default function Page() {
+export default async function Page() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+  const call = await getFetcher({ link: "/insurance-list", token: token });
+  console.log(call);
+
   return (
     <main className="!px-[7%]">
       <div className="h-[50dvh] flex flex-col gap-8 justify-center items-center w-full">

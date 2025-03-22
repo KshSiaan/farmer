@@ -17,7 +17,7 @@ import {
 // This is sample data.
 const data = {
   user: {
-    name: "Admin",
+    name: "User",
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
@@ -30,13 +30,13 @@ const data = {
   ],
   navMain: [
     {
-      title: "Farms",
+      title: "Manage",
       url: "#",
       icon: VeganIcon,
       isActive: true,
       items: [
         {
-          title: "Market",
+          title: "Orders",
           url: "/admin-dashboard/market",
         },
         {
@@ -44,23 +44,23 @@ const data = {
           url: "/admin-dashboard/farm-monitor",
         },
         {
-          title: "Farmers",
+          title: "Products",
           url: "/admin-dashboard/farmers",
         },
       ],
     },
     {
-      title: "Investments",
+      title: "Investors",
       url: "#",
       icon: BanknoteIcon,
       isActive: true,
       items: [
         {
-          title: "Investment and transitions",
+          title: "Investment management",
           url: "#",
         },
         {
-          title: "See investors",
+          title: "See invest offers",
           url: "#",
         },
       ],

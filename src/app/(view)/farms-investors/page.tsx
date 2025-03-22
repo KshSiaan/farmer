@@ -1,6 +1,7 @@
+"use server";
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Star, Users, ArrowUpRight } from "lucide-react";
+import { MapPin, ArrowUpRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -14,9 +15,38 @@ import {
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { getFetcher } from "@/lib/simplifier";
+import { cookies } from "next/headers";
+import { FarmType, InvestmentType } from "@/types/itemTypes";
 
-export default function FarmsPage() {
+export default async function FarmsPage() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+
+  if (!token) {
+    return (
+      <>
+        <div className="h-[300px] w-full flex flex-col justify-center items-center gap-4">
+          <h2 className="text-lg font-semibold">
+            User must be logged in to see this content
+          </h2>
+        </div>
+      </>
+    );
+  }
+
+  const farmCall = await getFetcher({ link: "/farms", token: token });
+
+  const farmData: FarmType[] = farmCall.data.data;
+
+  const invCall = await getFetcher({ link: "/investment-get", token: token });
+
+  const invData: InvestmentType[] = invCall.data.data;
+
+  const catCall = await getFetcher({ link: "/all-categories", token: token });
+
+  const catData = catCall.data.data;
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
@@ -58,7 +88,7 @@ export default function FarmsPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {farms.map((farm) => (
+          {farmData.map((farm) => (
             <FarmCard key={farm.id} farm={farm} />
           ))}
         </div>
@@ -86,30 +116,26 @@ export default function FarmsPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {investors.map((investor) => (
+            {invData.map((investor) => (
               <Card
                 key={investor.id}
                 className="border-zinc-200 dark:border-zinc-800"
               >
                 <CardHeader className="!pb-2">
                   <div className="flex items-center gap-3">
-                    <Avatar className="h-10 w-10">
-                      <AvatarImage src={investor.avatar} alt={investor.name} />
-                      <AvatarFallback>{investor.name.charAt(0)}</AvatarFallback>
-                    </Avatar>
                     <div>
                       <CardTitle className="text-base">
-                        {investor.name}
+                        {investor.investor.name}
                       </CardTitle>
-                      <CardDescription>{investor.type}</CardDescription>
+                      <CardDescription>{investor.profit_share}</CardDescription>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent className="!pb-4">
                   <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                    {investor.description}
+                    {investor.profit_share}
                   </p>
-                  <div className="flex flex-wrap gap-1 !mt-3">
+                  {/* <div className="flex flex-wrap gap-1 !mt-3">
                     {investor.interests.map((interest, i) => (
                       <Badge
                         key={i}
@@ -119,13 +145,13 @@ export default function FarmsPage() {
                         {interest}
                       </Badge>
                     ))}
-                  </div>
+                  </div> */}
                 </CardContent>
-                <CardFooter>
+                {/* <CardFooter>
                   <Button variant="outline" size="sm" className="w-full">
                     Connect
                   </Button>
-                </CardFooter>
+                </CardFooter> */}
               </Card>
             ))}
           </div>
@@ -152,23 +178,24 @@ export default function FarmsPage() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {marketplaceCategories.map((category, i) => (
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          {catData.map((category: any, i: number) => (
             <Link
               key={i}
               href="#"
-              className="group flex flex-col items-center p-4 border border-zinc-200 dark:border-zinc-800 rounded-lg hover:border-green-500 dark:hover:border-green-500 transition-colors"
+              className="group flex flex-col items-center !p-4 border border-zinc-200 dark:border-zinc-800 rounded-lg hover:border-green-500 dark:hover:border-green-500 transition-colors"
             >
               <div className="w-16 h-16 flex items-center justify-center bg-zinc-100 dark:bg-zinc-800 rounded-full !mb-3 group-hover:bg-green-50 dark:group-hover:bg-green-900/20 transition-colors">
                 <Image
-                  src="/placeholder.svg?height=40&width=40"
-                  alt={category}
+                  src={category.icon}
+                  alt={category.name}
                   width={40}
                   height={40}
-                  className="opacity-70"
+                  className="opacity-70 object-cover object-center w-full h-full rounded-full !p-1"
                 />
               </div>
               <span className="text-sm font-medium text-center">
-                {category}
+                {category.name}
               </span>
             </Link>
           ))}
@@ -339,52 +366,50 @@ export default function FarmsPage() {
   );
 }
 
-// Farm Card Component
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function FarmCard({ farm }: any) {
+function FarmCard({ farm }: { farm: FarmType }) {
   return (
     <Card className="overflow-hidden border-zinc-200 dark:border-zinc-800 hover:border-green-500 dark:hover:border-green-500 transition-colors">
       <div className="relative h-48">
         <Image
-          src={farm.image || "/placeholder.svg"}
-          alt={farm.name}
+          src={farm.image[0] || "/placeholder.svg"}
+          alt={farm.farm_name}
           fill
           className="object-cover"
         />
-        {farm.featured && (
+        {farm.crop_status == "available" && (
           <Badge className="absolute top-2 right-2 bg-green-600">
-            Featured
+            Available
           </Badge>
         )}
       </div>
       <CardHeader className="pb-2">
         <div className="flex justify-between items-start">
           <div>
-            <CardTitle className="text-xl">{farm.name}</CardTitle>
+            <CardTitle className="text-xl">{farm.farm_name}</CardTitle>
             <div className="flex items-center text-zinc-500 text-sm !mt-1">
               <MapPin className="h-3.5 w-3.5 !mr-1" />
               {farm.location}
             </div>
           </div>
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <Star className="h-4 w-4 fill-amber-400 stroke-amber-400 !mr-1" />
             <span className="text-sm font-medium">{farm.rating}</span>
-          </div>
+          </div> */}
         </div>
       </CardHeader>
       <CardContent className="pb-3">
         <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2 !mb-3">
-          {farm.description}
+          {farm.crop_type}
         </p>
-        <div className="flex flex-wrap gap-1 !mb-3">
-          {farm.tags.map((tag: string, i: number) => (
+        {/* <div className="flex flex-wrap gap-1 !mb-3">
+          {farm..map((tag: string, i: number) => (
             <Badge key={i} variant="secondary" className="text-xs font-normal">
               {tag}
             </Badge>
           ))}
-        </div>
-        <Separator className="my-3" />
-        <div className="flex justify-between items-center">
+        </div> */}
+        <Separator className="!my-3" />
+        {/* <div className="flex justify-between items-center">
           <div>
             <p className="text-xs text-zinc-500 dark:text-zinc-400">
               Investment Opportunity
@@ -398,7 +423,7 @@ function FarmCard({ farm }: any) {
             <Users className="h-3.5 w-3.5 !mr-1" />
             {farm.investors} investors
           </div>
-        </div>
+        </div> */}
       </CardContent>
       <CardFooter className="!pt-0">
         <Button className="w-full bg-green-600 hover:bg-green-700">
@@ -408,139 +433,3 @@ function FarmCard({ farm }: any) {
     </Card>
   );
 }
-
-// Sample Data
-const farms = [
-  {
-    id: 1,
-    name: "Green Valley Organics",
-    description:
-      "A 50-acre organic vegetable farm specializing in sustainable farming practices and crop rotation. Looking for investment to expand greenhouse operations.",
-    location: "Sonoma County, CA",
-    image: "/placeholder.svg?height=200&width=400",
-    rating: 4.8,
-    tags: ["Organic", "Vegetables", "Sustainable", "Crops"],
-    investmentMin: 50000,
-    investmentMax: 150000,
-    investors: 12,
-    featured: true,
-  },
-  {
-    id: 2,
-    name: "Highland Cattle Ranch",
-    description:
-      "Family-owned cattle ranch with 200 grass-fed cattle on 500 acres. Seeking partnership to implement regenerative grazing practices.",
-    location: "Montana",
-    image: "/placeholder.svg?height=200&width=400",
-    rating: 4.6,
-    tags: ["Livestock", "Grass-fed", "Regenerative"],
-    investmentMin: 100000,
-    investmentMax: 300000,
-    investors: 8,
-    featured: false,
-  },
-  {
-    id: 3,
-    name: "Sunrise Orchards",
-    description:
-      "Apple and pear orchard with 30 years of experience. Looking for investment to transition to organic certification and expand variety selection.",
-    location: "Washington State",
-    image: "/placeholder.svg?height=200&width=400",
-    rating: 4.7,
-    tags: ["Fruit", "Transitional", "Crops"],
-    investmentMin: 75000,
-    investmentMax: 200000,
-    investors: 15,
-    featured: true,
-  },
-  {
-    id: 4,
-    name: "Blue Moon Aquaponics",
-    description:
-      "Innovative aquaponics farm combining fish farming with vegetable production. Seeking investment to scale operations and improve technology.",
-    location: "Wisconsin",
-    image: "/placeholder.svg?height=200&width=400",
-    rating: 4.5,
-    tags: ["Aquaponics", "Innovation", "Sustainable"],
-    investmentMin: 80000,
-    investmentMax: 250000,
-    investors: 7,
-    featured: false,
-  },
-  {
-    id: 5,
-    name: "Sunshine Hemp Cooperative",
-    description:
-      "Farmer-owned cooperative growing industrial hemp for CBD, fiber, and grain. Looking for investment to expand processing capabilities.",
-    location: "Kentucky",
-    image: "/placeholder.svg?height=200&width=400",
-    rating: 4.4,
-    tags: ["Hemp", "Cooperative", "Crops"],
-    investmentMin: 60000,
-    investmentMax: 180000,
-    investors: 22,
-    featured: false,
-  },
-  {
-    id: 6,
-    name: "Windy Hill Vineyard",
-    description:
-      "Boutique vineyard producing award-winning wines with sustainable practices. Seeking investment for tasting room expansion and new varietals.",
-    location: "Napa Valley, CA",
-    image: "/placeholder.svg?height=200&width=400",
-    rating: 4.9,
-    tags: ["Vineyard", "Sustainable", "Crops"],
-    investmentMin: 150000,
-    investmentMax: 400000,
-    investors: 9,
-    featured: true,
-  },
-];
-
-const investors = [
-  {
-    id: 1,
-    name: "EcoGrowth Capital",
-    type: "Venture Capital",
-    description:
-      "Focused on sustainable agriculture and food systems with investments ranging from $100K to $2M.",
-    avatar: "/placeholder.svg?height=40&width=40",
-    interests: ["Organic", "Technology", "Sustainability"],
-  },
-  {
-    id: 2,
-    name: "Sarah Johnson",
-    type: "Angel Investor",
-    description:
-      "Former tech executive passionate about supporting small-scale regenerative farming operations.",
-    avatar: "/placeholder.svg?height=40&width=40",
-    interests: ["Regenerative", "Small Farms", "Local Food"],
-  },
-  {
-    id: 3,
-    name: "AgriInnovate Fund",
-    type: "Investment Fund",
-    description:
-      "Specializing in agricultural innovation and technology with a focus on climate resilience.",
-    avatar: "/placeholder.svg?height=40&width=40",
-    interests: ["AgTech", "Climate", "Innovation"],
-  },
-  {
-    id: 4,
-    name: "Green Future Partners",
-    type: "Impact Investors",
-    description:
-      "Collective of impact investors supporting environmentally and socially responsible agriculture.",
-    avatar: "/placeholder.svg?height=40&width=40",
-    interests: ["Impact", "Community", "Sustainable"],
-  },
-];
-
-const marketplaceCategories = [
-  "Seeds & Plants",
-  "Equipment",
-  "Livestock",
-  "Organic Inputs",
-  "Consulting",
-  "Farm Products",
-];

@@ -1,22 +1,34 @@
+"use server";
 import { Button } from "@/components/ui/button";
+import { getFetcher } from "@/lib/simplifier";
+import { User } from "@/types/userType";
 import { EyeIcon } from "lucide-react";
+import { cookies } from "next/headers";
 import React from "react";
 
-export default function Page() {
+export default async function Page() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+
+  const call = await getFetcher({ link: "/auth/profile", token: token });
+
+  const user: User = call.data;
+
   return (
     <main className="min-h-screen !py-8 !px-2 md:!px-[7%]">
       <section className="w-full max-h-[300px] flex flex-row justify-between items-start">
-        <div className="size-[200px] rounded-full bg-zinc-300 "></div>
+        <div
+          className="size-[200px] rounded-full bg-zinc-300 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url('${user.image}')` }}
+        ></div>
         <div className="flex flex-col gap-4">
           <Button variant="farm">Manage & Monitor</Button>
           <Button variant="outline">Settings</Button>
         </div>
       </section>
       <section className="!mt-8 !space-y-4">
-        <h2 className="text-4xl font-bold">Porter Robinson</h2>
-        <p className="text-secondary-foreground text-sm">
-          Some more info about the user
-        </p>
+        <h2 className="text-4xl font-bold">{user.name}</h2>
+        <p className="text-secondary-foreground text-sm">{user.email}</p>
       </section>
       <section className="!py-8">
         <h2 className="font-bold w-full border-b !pb-4">My farms</h2>

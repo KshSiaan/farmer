@@ -38,7 +38,7 @@ const NavLinks = [
 const profLinks = [
   {
     label: "Dashboard",
-    key: "dashboard",
+    key: "my-dashboard",
     icon: LayoutDashboard,
   },
   {
