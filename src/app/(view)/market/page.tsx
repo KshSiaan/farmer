@@ -19,6 +19,15 @@ import React from "react";
 export default async function Page() {
   const cookieStore = await cookies();
   const token = cookieStore.get("token");
+
+  if (!token?.value) {
+    return (
+      <div className="h-[400px] w-full flex justify-center items-center font-bold">
+        Please log in first
+      </div>
+    );
+  }
+
   const call = await getFetcher({ link: "/all-products", token: token?.value });
   // console.log(call);
 

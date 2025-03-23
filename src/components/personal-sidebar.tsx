@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { BanknoteIcon, TractorIcon, User2Icon, VeganIcon } from "lucide-react";
+import { BanknoteIcon, TractorIcon, VeganIcon } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
@@ -13,6 +13,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { User } from "@/types/userType";
 
 // This is sample data.
 const data = {
@@ -65,22 +66,13 @@ const data = {
         },
       ],
     },
-    {
-      title: "Users",
-      url: "#",
-      icon: User2Icon,
-      isActive: true,
-      items: [
-        {
-          title: "User management",
-          url: "#",
-        },
-      ],
-    },
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  user,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & { user: User }) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -90,7 +82,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

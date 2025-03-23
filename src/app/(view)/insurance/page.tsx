@@ -37,6 +37,13 @@ const insurances = [
 export default async function Page() {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
+  if (!token) {
+    return (
+      <div className="h-[400px] w-full flex justify-center items-center font-bold">
+        Please log in first
+      </div>
+    );
+  }
   const call = await getFetcher({ link: "/insurance-list", token: token });
   console.log(call);
 

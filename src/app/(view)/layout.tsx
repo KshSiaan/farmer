@@ -8,15 +8,28 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token");
+  let call;
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("token");
+    // console.log("token is ", token?.value);
 
-  const call = await getFetcher({ link: "/auth/profile", token: token?.value });
-  console.log(call);
+    if (token) {
+      call = await getFetcher({ link: "/auth/profile", token: token?.value });
+    } else {
+      call = { status: false };
+    }
+
+    // if (!call.status) {
+    //   console.error("Failed to fetch profile:", call);
+    // }
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+  }
 
   return (
     <>
-      <Navbar user={call.data} />
+      {call?.status ? <Navbar user={call.data} /> : <Navbar />}
       {children}
       <Footer />
     </>

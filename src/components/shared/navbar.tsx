@@ -70,7 +70,7 @@ const profLinks = [
   },
 ];
 
-export default function Navbar({ user }: { user: User }) {
+export default function Navbar({ user }: { user?: User }) {
   // const user = null;
   return (
     <nav className="h-[64px] w-dvw shadow-sm flex flex-row justify-between items-center !px-6">
