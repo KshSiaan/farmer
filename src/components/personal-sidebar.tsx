@@ -38,15 +38,15 @@ const data = {
       items: [
         {
           title: "Orders",
-          url: "/admin-dashboard/market",
+          url: "/my-dashboard/orders",
         },
         {
           title: "Farm Monitor",
-          url: "/admin-dashboard/farm-monitor",
+          url: "/my-dashboard",
         },
         {
           title: "Products",
-          url: "/admin-dashboard/farmers",
+          url: "/my-dashboard/products",
         },
       ],
     },
@@ -58,11 +58,11 @@ const data = {
       items: [
         {
           title: "Investment management",
-          url: "#",
+          url: "/my-dashboard/investment-manage",
         },
         {
           title: "See invest offers",
-          url: "#",
+          url: "/my-dashboard/investment-offers",
         },
       ],
     },

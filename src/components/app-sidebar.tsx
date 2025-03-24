@@ -45,8 +45,8 @@ const data = {
           url: "/admin-dashboard/farm-monitor",
         },
         {
-          title: "Farmers",
-          url: "/admin-dashboard/farmers",
+          title: "Farms",
+          url: "/admin-dashboard/farms",
         },
       ],
     },
@@ -58,11 +58,11 @@ const data = {
       items: [
         {
           title: "Investment and transitions",
-          url: "#",
+          url: "/admin-dashboard/trans",
         },
         {
           title: "See investors",
-          url: "#",
+          url: "/admin-dashboard/investors",
         },
       ],
     },
