@@ -1,12 +1,35 @@
-"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import setImg from "@/lib/imgSetter";
 import { SearchIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { ProductType } from "@/types/itemTypes";
+import { getFetcher } from "@/lib/simplifier";
+import { cookies } from "next/headers";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+export default async function Page() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token");
+  const call = await getFetcher({ link: "/all-products", token: token?.value });
+  // console.log(call);
 
-export default function Page() {
+  if (!call.status) {
+    return (
+      <div className="h-[50dvh] flex flex-col gap-8 justify-center items-center w-screen">
+        Internal server error
+      </div>
+    );
+  }
+
+  const data = call.data;
+
+  const productList: ProductType[] = data.data;
   return (
     <main className="!py-8 !px-[7%]">
       <div className="h-[50dvh] flex flex-col gap-8 justify-center items-center">
@@ -21,14 +44,20 @@ export default function Page() {
           <SearchIcon /> Search
         </Button>
       </div>
-      <div className="grid grid-cols-5 gap-6">
-        {Array.from(Array(7).keys()).map((i) => (
-          <Link href="product/bleh" key={i}>
-            <div
-              key={i}
-              className="w-full h-[200px] bg-zinc-200 rounded-xl shadow-sm"
-              style={{ backgroundImage: `${setImg()}` }}
-            ></div>
+      <div className="grid grid-cols-3 gap-6">
+        {productList.map((item) => (
+          <Link key={item.id} href={`/market/product/${item.id}`}>
+            <Card>
+              <CardHeader
+                className="w-full h-[200px] bg-gray-400 bg-center bg-cover bg-no-repeat"
+                style={{ backgroundImage: item.image }}
+              />
+              <CardContent className="">
+                <CardTitle>{item.name}</CardTitle>
+                <CardDescription>{item.description}</CardDescription>
+                <div className="w-full !py-4 text-right">${item.price}</div>
+              </CardContent>
+            </Card>
           </Link>
         ))}
       </div>

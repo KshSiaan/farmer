@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Leaf, Users, TrendingUp } from "lucide-react";
+import Link from "next/link";
 
 export default function ImpactPage() {
   return (
@@ -63,7 +64,7 @@ export default function ImpactPage() {
             </div>
             <div className="relative h-[400px] overflow-hidden rounded-xl !mt-8 lg:!mt-0">
               <Image
-                src="/placeholder.svg?height=800&width=1200"
+                src="/bg.webp"
                 alt="Farmers working in a sustainable farm"
                 className="object-cover"
                 fill
@@ -185,7 +186,7 @@ export default function ImpactPage() {
 
       {/* Blog Section */}
       <section className="w-full !py-12 md:!py-24 lg:!py-32 bg-zinc-50">
-        <div className="container !px-4 md:!px-6">
+        <div className="container !px-4 md:!px-6 !mx-auto">
           <div className="flex flex-col items-center justify-center space-y-4 text-center !mb-12">
             <div className="inline-flex items-center rounded-full border border-green-600/20 bg-green-50 !px-3 !py-1 text-sm text-green-700">
               <Users className="!mr-1 h-3.5 w-3.5" />
@@ -203,7 +204,7 @@ export default function ImpactPage() {
             <Card className="overflow-hidden">
               <div className="relative h-[200px] w-full">
                 <Image
-                  src="/placeholder.svg?height=400&width=600"
+                  src="/images (2).jpg"
                   alt="Farmer in field"
                   className="object-cover"
                   fill
@@ -235,7 +236,7 @@ export default function ImpactPage() {
             <Card className="overflow-hidden">
               <div className="relative h-[200px] w-full">
                 <Image
-                  src="/placeholder.svg?height=400&width=600"
+                  src="/images (5).jpg"
                   alt="Community farm project"
                   className="object-cover"
                   fill
@@ -267,7 +268,7 @@ export default function ImpactPage() {
             <Card className="overflow-hidden sm:col-span-2 lg:col-span-1">
               <div className="relative h-[200px] w-full">
                 <Image
-                  src="/placeholder.svg?height=400&width=600"
+                  src="/images (3).jpg"
                   alt="Investor meeting farmers"
                   className="object-cover"
                   fill
@@ -314,20 +315,26 @@ export default function ImpactPage() {
                 you to a community dedicated to sustainable agriculture.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 !mt-8">
-                <Button className="bg-green-600 hover:bg-green-700 text-white !py-6">
-                  Join as a Farmer
+                <Button
+                  className="bg-green-600 hover:bg-green-700 text-white !py-6"
+                  asChild
+                >
+                  <Link href="/register">Join as a Farmer</Link>
                 </Button>
                 <Button
                   variant="outline"
                   className="border-green-600 text-green-600 hover:bg-green-100 !py-6"
+                  asChild
                 >
-                  Explore Investment Opportunities
+                  <Link href="farms-investors">
+                    Explore Investment Opportunities
+                  </Link>
                 </Button>
               </div>
             </div>
             <div className="relative h-[400px] overflow-hidden rounded-xl !mt-8 lg:!mt-0">
               <Image
-                src="/placeholder.svg?height=800&width=1200"
+                src="/bg.webp"
                 alt="Farmers and investors working together"
                 className="object-cover"
                 fill

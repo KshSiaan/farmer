@@ -168,7 +168,7 @@ function TeamMemberCard({
           src={member.image || "/placeholder.svg"}
           alt={member.name}
           fill
-          className="object-cover rounded-full"
+          className="object-cover"
         />
       </div>
       <div className="!p-6">
@@ -240,7 +240,7 @@ const executives: TeamMember[] = [
     name: "Sarah Johnson",
     role: "Chief Executive Officer",
     bio: "Sarah has over 20 years of experience in the industry and has led the company to record growth since joining in 2015.",
-    image: "/placeholder.svg?height=400&width=400",
+    image: "https://avatar.iran.liara.run/public/1",
     email: "sarah@example.com",
     social: {
       linkedin: "https://linkedin.com",
@@ -251,7 +251,7 @@ const executives: TeamMember[] = [
     name: "Michael Chen",
     role: "Chief Technology Officer",
     bio: "Michael oversees all technical aspects of the company and has been instrumental in developing our core products.",
-    image: "/placeholder.svg?height=400&width=400",
+    image: "https://avatar.iran.liara.run/public/2",
     email: "michael@example.com",
     social: {
       linkedin: "https://linkedin.com",
@@ -262,7 +262,7 @@ const executives: TeamMember[] = [
     name: "Jessica Williams",
     role: "Chief Financial Officer",
     bio: "Jessica brings her financial expertise to ensure sustainable growth and strategic investments for our future.",
-    image: "/placeholder.svg?height=400&width=400",
+    image: "https://avatar.iran.liara.run/public/3",
     email: "jessica@example.com",
     social: {
       linkedin: "https://linkedin.com",
@@ -274,16 +274,13 @@ const itTeam: TeamMember[] = [
   {
     name: "David Kim",
     role: "Lead Developer",
-    image: "/placeholder.svg?height=300&width=300",
-    social: {
-      linkedin: "https://linkedin.com",
-      github: "https://github.com",
-    },
+    image: "https://avatar.iran.liara.run/public/4",
+    social: { linkedin: "https://linkedin.com", github: "https://github.com" },
   },
   {
     name: "Emma Rodriguez",
     role: "UX Designer",
-    image: "/placeholder.svg?height=300&width=300",
+    image: "https://avatar.iran.liara.run/public/5",
     social: {
       linkedin: "https://linkedin.com",
       twitter: "https://twitter.com",
@@ -292,51 +289,37 @@ const itTeam: TeamMember[] = [
   {
     name: "James Wilson",
     role: "DevOps Engineer",
-    image: "/placeholder.svg?height=300&width=300",
-    social: {
-      linkedin: "https://linkedin.com",
-      github: "https://github.com",
-    },
+    image: "https://avatar.iran.liara.run/public/6",
+    social: { linkedin: "https://linkedin.com", github: "https://github.com" },
   },
   {
     name: "Olivia Martinez",
     role: "Frontend Developer",
-    image: "/placeholder.svg?height=300&width=300",
-    social: {
-      linkedin: "https://linkedin.com",
-      github: "https://github.com",
-    },
+    image: "https://avatar.iran.liara.run/public/7",
+    social: { linkedin: "https://linkedin.com", github: "https://github.com" },
   },
   {
     name: "Daniel Lee",
     role: "Backend Developer",
-    image: "/placeholder.svg?height=300&width=300",
-    social: {
-      linkedin: "https://linkedin.com",
-      github: "https://github.com",
-    },
+    image: "https://avatar.iran.liara.run/public/8",
+    social: { linkedin: "https://linkedin.com", github: "https://github.com" },
   },
   {
     name: "Sophia Garcia",
     role: "QA Engineer",
-    image: "/placeholder.svg?height=300&width=300",
-    social: {
-      linkedin: "https://linkedin.com",
-    },
+    image: "https://avatar.iran.liara.run/public/9",
+    social: { linkedin: "https://linkedin.com" },
   },
   {
     name: "Ethan Brown",
     role: "Mobile Developer",
-    image: "/placeholder.svg?height=300&width=300",
-    social: {
-      linkedin: "https://linkedin.com",
-      github: "https://github.com",
-    },
+    image: "https://avatar.iran.liara.run/public/10",
+    social: { linkedin: "https://linkedin.com", github: "https://github.com" },
   },
   {
     name: "Ava Thompson",
     role: "UI Designer",
-    image: "/placeholder.svg?height=300&width=300",
+    image: "https://avatar.iran.liara.run/public/11",
     social: {
       linkedin: "https://linkedin.com",
       twitter: "https://twitter.com",
@@ -348,7 +331,7 @@ const businessTeam: TeamMember[] = [
   {
     name: "Noah Clark",
     role: "Sales Director",
-    image: "/placeholder.svg?height=300&width=300",
+    image: "https://avatar.iran.liara.run/public/12",
     social: {
       linkedin: "https://linkedin.com",
       twitter: "https://twitter.com",
@@ -357,7 +340,7 @@ const businessTeam: TeamMember[] = [
   {
     name: "Isabella Wright",
     role: "Marketing Manager",
-    image: "/placeholder.svg?height=300&width=300",
+    image: "https://avatar.iran.liara.run/public/13",
     social: {
       linkedin: "https://linkedin.com",
       twitter: "https://twitter.com",
@@ -366,15 +349,13 @@ const businessTeam: TeamMember[] = [
   {
     name: "William Turner",
     role: "Business Analyst",
-    image: "/placeholder.svg?height=300&width=300",
-    social: {
-      linkedin: "https://linkedin.com",
-    },
+    image: "https://avatar.iran.liara.run/public/14",
+    social: { linkedin: "https://linkedin.com" },
   },
   {
     name: "Charlotte Adams",
     role: "Account Executive",
-    image: "/placeholder.svg?height=300&width=300",
+    image: "https://avatar.iran.liara.run/public/15",
     social: {
       linkedin: "https://linkedin.com",
       twitter: "https://twitter.com",
@@ -383,15 +364,13 @@ const businessTeam: TeamMember[] = [
   {
     name: "Benjamin Scott",
     role: "Partnership Manager",
-    image: "/placeholder.svg?height=300&width=300",
-    social: {
-      linkedin: "https://linkedin.com",
-    },
+    image: "https://avatar.iran.liara.run/public/16",
+    social: { linkedin: "https://linkedin.com" },
   },
   {
     name: "Mia Nelson",
     role: "Content Strategist",
-    image: "/placeholder.svg?height=300&width=300",
+    image: "https://avatar.iran.liara.run/public/17",
     social: {
       linkedin: "https://linkedin.com",
       twitter: "https://twitter.com",
@@ -400,15 +379,13 @@ const businessTeam: TeamMember[] = [
   {
     name: "Henry Mitchell",
     role: "Sales Representative",
-    image: "/placeholder.svg?height=300&width=300",
-    social: {
-      linkedin: "https://linkedin.com",
-    },
+    image: "https://avatar.iran.liara.run/public/18",
+    social: { linkedin: "https://linkedin.com" },
   },
   {
     name: "Amelia Carter",
     role: "Digital Marketing Specialist",
-    image: "/placeholder.svg?height=300&width=300",
+    image: "https://avatar.iran.liara.run/public/19",
     social: {
       linkedin: "https://linkedin.com",
       twitter: "https://twitter.com",
@@ -420,31 +397,25 @@ const managementTeam: TeamMember[] = [
   {
     name: "Alexander Phillips",
     role: "Operations Manager",
-    image: "/placeholder.svg?height=300&width=300",
-    social: {
-      linkedin: "https://linkedin.com",
-    },
+    image: "https://avatar.iran.liara.run/public/20",
+    social: { linkedin: "https://linkedin.com" },
   },
   {
     name: "Sofia Campbell",
     role: "HR Director",
-    image: "/placeholder.svg?height=300&width=300",
-    social: {
-      linkedin: "https://linkedin.com",
-    },
+    image: "https://avatar.iran.liara.run/public/21",
+    social: { linkedin: "https://linkedin.com" },
   },
   {
     name: "Lucas Parker",
     role: "Project Manager",
-    image: "/placeholder.svg?height=300&width=300",
-    social: {
-      linkedin: "https://linkedin.com",
-    },
+    image: "https://avatar.iran.liara.run/public/22",
+    social: { linkedin: "https://linkedin.com" },
   },
   {
     name: "Evelyn Morris",
     role: "Customer Success Manager",
-    image: "/placeholder.svg?height=300&width=300",
+    image: "https://avatar.iran.liara.run/public/23",
     social: {
       linkedin: "https://linkedin.com",
       twitter: "https://twitter.com",
@@ -453,34 +424,25 @@ const managementTeam: TeamMember[] = [
   {
     name: "Jackson Reed",
     role: "Product Manager",
-    image: "/placeholder.svg?height=300&width=300",
-    social: {
-      linkedin: "https://linkedin.com",
-      github: "https://github.com",
-    },
+    image: "https://avatar.iran.liara.run/public/24",
+    social: { linkedin: "https://linkedin.com", github: "https://github.com" },
   },
   {
     name: "Scarlett Cooper",
     role: "Office Manager",
-    image: "/placeholder.svg?height=300&width=300",
-    social: {
-      linkedin: "https://linkedin.com",
-    },
+    image: "https://avatar.iran.liara.run/public/25",
+    social: { linkedin: "https://linkedin.com" },
   },
   {
     name: "Leo Bailey",
     role: "Facilities Manager",
-    image: "/placeholder.svg?height=300&width=300",
-    social: {
-      linkedin: "https://linkedin.com",
-    },
+    image: "https://avatar.iran.liara.run/public/26",
+    social: { linkedin: "https://linkedin.com" },
   },
   {
     name: "Victoria Gray",
     role: "Training Coordinator",
-    image: "/placeholder.svg?height=300&width=300",
-    social: {
-      linkedin: "https://linkedin.com",
-    },
+    image: "https://avatar.iran.liara.run/public/27",
+    social: { linkedin: "https://linkedin.com" },
   },
 ];

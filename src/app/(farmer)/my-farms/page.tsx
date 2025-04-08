@@ -11,27 +11,17 @@ import {
 import Link from "next/link";
 import { PenIcon, Trash2Icon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { cookies } from "next/headers";
+import { getFetcher } from "@/lib/simplifier";
+import { FarmType } from "@/types/itemTypes";
 
-const farms = [
-  {
-    id: "01",
-    farmer_name: "John Doe",
-    location: "Farmville",
-    size: "50 acres",
-    crop_type: "Tomato",
-    status: "Active",
-  },
-  {
-    id: "02",
-    farmer_name: "Jane Smith",
-    location: "Greenfield",
-    size: "30 acres",
-    crop_type: "Corn",
-    status: "Inactive",
-  },
-];
+export default async function MyFarms() {
+  const token = (await cookies()).get("token")?.value;
 
-export default function MyFarms() {
+  const call = await getFetcher({ link: "/farms", token });
+
+  const data = call.data.data;
+
   return (
     <main className="!py-8 !px-[7%]">
       <div className="!py-8">
@@ -57,18 +47,21 @@ export default function MyFarms() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {farms.map((item, i) => (
-              <TableRow key={i}>
+            {data.map((item: FarmType) => (
+              <TableRow key={item.id}>
                 <TableCell className="font-medium">{item.id}</TableCell>
-                <TableCell>{item.farmer_name}</TableCell>
+                <TableCell>{item.farmer.name}</TableCell>
                 <TableCell>{item.location}</TableCell>
                 <TableCell>{item.size}</TableCell>
                 <TableCell>{item.crop_type}</TableCell>
                 <TableCell>
                   <Badge
-                    variant={item.status == "Active" ? "default" : "outline"}
+                    className="capitalize"
+                    variant={
+                      item.crop_status == "available" ? "default" : "outline"
+                    }
                   >
-                    {item.status}
+                    {item.crop_status}
                   </Badge>
                 </TableCell>
                 <TableCell className="flex justify-center items-center gap-4">

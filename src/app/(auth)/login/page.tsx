@@ -40,6 +40,7 @@ const formSchema = z.object({
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [, setCookie] = useCookies(["token"]);
+  const [loading, setLoading] = useState<boolean>(false);
   const navig = useRouter();
 
   // Initialize form with React Hook Form and Zod resolver
@@ -54,6 +55,7 @@ export default function LoginForm() {
   // Form submission handler
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
+      setLoading(true);
       console.log(values);
       const call = await postFetcher({
         link: "/auth/login",
@@ -64,16 +66,21 @@ export default function LoginForm() {
 
       if (!call.status) {
         form.setError("password", { message: call.message });
+        setLoading(false);
+        return;
       }
       if (call.access_token) {
         setCookie("token", call.access_token);
         navig.push("/");
+        setLoading(false);
       } else {
         console.log("Token not found");
       }
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
+    setLoading(false);
   }
 
   return (
@@ -159,10 +166,11 @@ export default function LoginForm() {
             </CardContent>
             <CardFooter>
               <Button
+                disabled={loading}
                 type="submit"
                 className="w-full bg-green-600 hover:bg-green-700 text-white"
               >
-                Sign in
+                {loading ? "Signing in.." : "Sign in"}
               </Button>
             </CardFooter>
           </form>

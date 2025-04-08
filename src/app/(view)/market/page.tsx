@@ -90,17 +90,19 @@ export default async function Page() {
         <h3 className="font-bold text-lg text-center">Today&apos;s trends</h3>
         <div className="!pt-8 grid grid-cols-4 gap-6">
           {productList.map((item, index) => (
-            <Card key={index}>
-              <CardHeader
-                className="w-full h-[200px] bg-gray-400 bg-center bg-cover bg-no-repeat"
-                style={{ backgroundImage: item.image }}
-              />
-              <CardContent className="">
-                <CardTitle>{item.name}</CardTitle>
-                <CardDescription>{item.description}</CardDescription>
-                <div className="w-full !py-4 text-right">${item.price}</div>
-              </CardContent>
-            </Card>
+            <Link key={index} href={`/market.product`}>
+              <Card>
+                <CardHeader
+                  className="w-full h-[200px] bg-gray-400 bg-center bg-cover bg-no-repeat"
+                  style={{ backgroundImage: item.image }}
+                />
+                <CardContent className="">
+                  <CardTitle>{item.name}</CardTitle>
+                  <CardDescription>{item.description}</CardDescription>
+                  <div className="w-full !py-4 text-right">${item.price}</div>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
       </div>

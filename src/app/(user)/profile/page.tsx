@@ -4,6 +4,7 @@ import { getFetcher } from "@/lib/simplifier";
 import { User } from "@/types/userType";
 import { EyeIcon } from "lucide-react";
 import { cookies } from "next/headers";
+import Link from "next/link";
 import React from "react";
 
 export default async function Page() {
@@ -22,8 +23,12 @@ export default async function Page() {
           style={{ backgroundImage: `url('${user.image}')` }}
         ></div>
         <div className="flex flex-col gap-4">
-          <Button variant="farm">Manage & Monitor</Button>
-          <Button variant="outline">Settings</Button>
+          <Button variant="farm" asChild>
+            <Link href="/my-dashboard">Manage & Monitor</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="settings">Settings</Link>
+          </Button>
         </div>
       </section>
       <section className="!mt-8 !space-y-4">

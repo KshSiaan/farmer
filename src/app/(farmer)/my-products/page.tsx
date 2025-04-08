@@ -10,6 +10,9 @@ import {
 } from "@/components/ui/table";
 import Link from "next/link";
 import { PenIcon, Trash2Icon } from "lucide-react";
+import { getFetcher } from "@/lib/simplifier";
+import { cookies } from "next/headers";
+import { ProductType } from "@/types/itemTypes";
 
 const products = [
   {
@@ -28,7 +31,13 @@ const products = [
   },
 ];
 
-export default function MyProducts() {
+export default async function MyProducts() {
+  const token = (await cookies()).get("token")?.value;
+
+  const call = await getFetcher({ link: "/all-products", token });
+
+  const data = call.data.data;
+
   return (
     <main className="!py-8 !px-[7%]">
       <div className="!py-8">
@@ -53,11 +62,11 @@ export default function MyProducts() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.map((item, i) => (
-              <TableRow key={i}>
+            {data.map((item: ProductType) => (
+              <TableRow key={item.id}>
                 <TableCell className="font-medium">{item.id}</TableCell>
                 <TableCell>{item.name}</TableCell>
-                <TableCell>{item.category}</TableCell>
+                <TableCell>{item.category.name}</TableCell>
                 <TableCell>{item.price}</TableCell>
                 <TableCell>{item.harvest_date}</TableCell>
                 <TableCell className=" flex justify-center items-center gap-4">

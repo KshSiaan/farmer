@@ -15,24 +15,28 @@ import { SquareArrowOutUpRight } from "lucide-react";
 import { getFetcher } from "@/lib/simplifier";
 import { cookies } from "next/headers";
 
-const insurances = [
-  {
-    id: 0,
-    iph: 12,
-    deductible: "20%",
-    type: "Yeild index insurance",
-    ech: 300,
-    Link: "#",
-  },
-  {
-    id: 0,
-    iph: 12,
-    deductible: "20%",
-    type: "Yeild index insurance",
-    ech: 300,
-    Link: "#",
-  },
-];
+interface Insurance {
+  id: number;
+  farm_id: number;
+  user_id: number;
+  provider: string;
+  policy_number: string;
+  coverage_details: string;
+  coverage_amount: string;
+  premium: string;
+  insurance_status: string;
+  claim_status: string;
+  created_at: string;
+  updated_at: string;
+  user: {
+    id: number;
+    name: string;
+  };
+  farm: {
+    id: number;
+    farm_name: string;
+  };
+}
 
 export default async function Page() {
   const cookieStore = await cookies();
@@ -45,7 +49,7 @@ export default async function Page() {
     );
   }
   const call = await getFetcher({ link: "/insurance-list", token: token });
-  console.log(call);
+  const insurances: Insurance[] = call.data.data;
 
   return (
     <main className="!px-[7%]">
@@ -80,15 +84,13 @@ export default async function Page() {
         </h2>
         <div className="">
           <Table className="bg-secondary">
-            <TableCaption>
-              A list of your all the popular investors.
-            </TableCaption>
+            <TableCaption>A list of all the insurances.</TableCaption>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[100px]">Sr.No</TableHead>
-                <TableHead>Insurance premium / hectre</TableHead>
-                <TableHead>Deductible</TableHead>
-                <TableHead>Insurance type</TableHead>
+                <TableHead className="w-[100px]">ID</TableHead>
+                <TableHead>Insurance Provider</TableHead>
+                <TableHead>Claim Status</TableHead>
+                <TableHead>Coverage Amount</TableHead>
                 <TableHead className="text-center">Action</TableHead>
               </TableRow>
             </TableHeader>
@@ -96,13 +98,12 @@ export default async function Page() {
               {insurances.map((item, i) => (
                 <TableRow key={i}>
                   <TableCell className="font-medium">{item.id}</TableCell>
-                  <TableCell>{item.iph}</TableCell>
-                  <TableCell>{item.deductible}</TableCell>
-                  <TableCell>{item.type}</TableCell>
-                  <TableCell>{item.ech}</TableCell>
+                  <TableCell>{item.provider}</TableCell>
+                  <TableCell>{item.claim_status}</TableCell>
+                  <TableCell>{item.coverage_amount}</TableCell>
                   <TableCell className=" flex justify-center items-center">
                     <Button variant="farm" className="" asChild>
-                      <Link href={item.Link}>
+                      <Link href={`/`}>
                         Apply for insurance
                         <SquareArrowOutUpRight />
                       </Link>

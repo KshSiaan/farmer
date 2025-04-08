@@ -76,14 +76,25 @@ export default function Home() {
                     : "order-first"
                 }
               >
-                <div className="bg-zinc-400 h-[500px] w-[400px]"></div>
+                <div
+                  className="bg-zinc-400 h-[500px] w-[400px] bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url('https://images.unsplash.com/photo-1505471768190-275e2ad7b3f9?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
+                  }}
+                ></div>
               </div>
             </div>
           ))}
         </div>
         <div className="!py-[100px] px-[5%]">
           <div className="flex flex-col justify-start items-center gap-6">
-            <div className="h-[200px] w-[200px] rounded-full bg-orange-500"></div>
+            <div
+              className="h-[200px] w-[200px] rounded-full bg-orange-500 bg-center bg-cover"
+              style={{
+                backgroundImage:
+                  "url('https://ifarmer.asia/assets/bold_orange_verified-f9774b22bada0e01d4dba580fb62694dcc7a94fae868eb285a5243e5633834e9.png')",
+              }}
+            ></div>
             <h2 className="text-orange-500 text-3xl font-semibold">
               We are Orange Seal certified!
             </h2>
