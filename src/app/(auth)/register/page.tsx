@@ -28,6 +28,8 @@ import Link from "next/link";
 import { postFetcher } from "@/lib/simplifier";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/navigation";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 // Define the form validation schema with Zod
 const formSchema = z
   .object({
@@ -44,6 +46,7 @@ const formSchema = z
     confirm_pass: z
       .string()
       .min(1, { message: "Please confirm your password" }),
+    is_verified_investor: z.boolean().default(false).optional(),
   })
   .refine((data) => data.password === data.confirm_pass, {
     message: "Passwords don't match",
@@ -67,6 +70,7 @@ export default function LoginForm() {
       name: "",
       address: "",
       confirm_pass: "",
+      is_verified_investor: false,
     },
   });
 
@@ -252,6 +256,27 @@ export default function LoginForm() {
                             {showCPassword ? "Hide password" : "Show password"}
                           </span>
                         </Button>
+                      </div>
+                    </FormControl>
+                    <FormMessage className="text-red-500" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="is_verified_investor"
+                render={({ field }) => (
+                  <FormItem className="col-span-2">
+                    <FormLabel className="text-zinc-700">
+                      Are you an investor?
+                    </FormLabel>
+                    <FormControl>
+                      <div className="relative flex items-center !space-x-2 !mt-4">
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />{" "}
+                        <Label>Register as a verified Investor</Label>
                       </div>
                     </FormControl>
                     <FormMessage className="text-red-500" />

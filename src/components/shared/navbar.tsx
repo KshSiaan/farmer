@@ -19,6 +19,7 @@ import {
 import Logout from "./sub/logout";
 import { Button } from "../ui/button";
 import { User } from "@/types/userType";
+import NotificationPanel from "./sub/notification-panel";
 // import {
 //   DropdownMenu,
 //   DropdownMenuContent,
@@ -111,6 +112,7 @@ export default function Navbar({ user }: { user?: User }) {
       </div>
 
       <div className="flex flex-row justify-end items-center gap-6 font-semibold">
+        <NotificationPanel/>
         {user ? (
           <div className="flex justify-end items-center">
             <Sheet>

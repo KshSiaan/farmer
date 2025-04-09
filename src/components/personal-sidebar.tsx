@@ -57,12 +57,50 @@ const data = {
       isActive: true,
       items: [
         {
+          title: "Investors List",
+          url: "/my-dashboard/investors",
+        },
+        {
           title: "Investment management",
           url: "/my-dashboard/investment-manage",
         },
         {
           title: "See invest offers",
           url: "/my-dashboard/investment-offers",
+        },
+      ],
+    },
+  ],
+  navSecondary: [
+    {
+      title: "Manage",
+      url: "#",
+      icon: BanknoteIcon,
+      isActive: true,
+      items: [
+        {
+          title: "Investment management",
+          url: "/my-dashboard/investment-manage",
+        },
+        {
+          title: "Products",
+          url: "/my-dashboard/products",
+        },
+        {
+          title: "Investors List",
+          url: "/my-dashboard/investors",
+        },
+      ],
+    },
+    {
+      title: "Farms",
+      url: "#",
+      icon: VeganIcon,
+      isActive: true,
+      items: [
+        {
+          title: "Farm Monitor",
+          url: "/my-dashboard",
         },
       ],
     },
@@ -79,7 +117,9 @@ export function AppSidebar({
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain
+          items={user.role === "investor" ? data.navSecondary : data.navMain}
+        />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={user} />

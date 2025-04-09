@@ -9,13 +9,24 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { getFetcher } from "@/lib/simplifier";
+import { User } from "@/types/userType";
 import { cookies } from "next/headers";
 import React from "react";
 
 export default async function Page() {
   const token = (await cookies()).get("token")?.value;
+  const userCall = await getFetcher({ link: "/auth/profile", token });
   const call = await getFetcher({ link: "/investment-get", token });
 
+
+  if (!userCall.status) {
+    console.error(userCall.message);
+  }
+  if (!call.status) {
+    console.error(call.message);
+  }
+
+  const userData: User = userCall.data;
   const data = call.data.data;
 
   return (
@@ -24,7 +35,9 @@ export default async function Page() {
         <TableHeader>
           <TableRow>
             <TableHead>ID</TableHead>
-            <TableHead>Investor name</TableHead>
+            <TableHead>
+              {userData.role == "farmer" ? "Investor name" : "Farm name"}
+            </TableHead>
             <TableHead>Investment status</TableHead>
             <TableHead>Amount</TableHead>
             <TableHead className="text-center">Action</TableHead>
@@ -37,10 +50,15 @@ export default async function Page() {
               investor: { name: string };
               invest_status: string;
               amount: string;
+              farm: { farm_name: string };
             }) => (
               <TableRow key={i.id}>
                 <TableCell>{i.id}</TableCell>
-                <TableCell>{i.investor.name}</TableCell>
+                <TableCell>
+                  {userData.role == "farmer"
+                    ? i.investor.name
+                    : i.farm.farm_name}
+                </TableCell>
                 <TableCell>
                   <Badge>{i.invest_status}</Badge>
                 </TableCell>
