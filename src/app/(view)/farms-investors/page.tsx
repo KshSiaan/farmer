@@ -18,6 +18,7 @@ import { Separator } from "@/components/ui/separator";
 import { getFetcher } from "@/lib/simplifier";
 import { cookies } from "next/headers";
 import { FarmType, InvestmentType } from "@/types/itemTypes";
+import FarmModal from "./farm-modal";
 
 export default async function FarmsPage() {
   const cookieStore = await cookies();
@@ -426,9 +427,7 @@ function FarmCard({ farm }: { farm: FarmType }) {
         </div> */}
       </CardContent>
       <CardFooter className="!pt-0">
-        <Button className="w-full bg-green-600 hover:bg-green-700">
-          View Details
-        </Button>
+        <FarmModal farm={farm}/>
       </CardFooter>
     </Card>
   );

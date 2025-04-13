@@ -36,6 +36,7 @@ const data = {
       icon: VeganIcon,
       isActive: true,
       items: [
+        { title: "Farms", url: "/my-dashboard/farms" },
         {
           title: "Orders",
           url: "/my-dashboard/orders",
@@ -47,6 +48,10 @@ const data = {
         {
           title: "Products",
           url: "/my-dashboard/products",
+        },
+        {
+          title: "Logistics",
+          url: "/my-dashboard/logistics",
         },
       ],
     },

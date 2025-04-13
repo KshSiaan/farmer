@@ -90,7 +90,7 @@ export default async function Page() {
         <h3 className="font-bold text-lg text-center">Today&apos;s trends</h3>
         <div className="!pt-8 grid grid-cols-4 gap-6">
           {productList.map((item, index) => (
-            <Link key={index} href={`/market.product`}>
+            <Link key={index} href={`/market/product`}>
               <Card>
                 <CardHeader
                   className="w-full h-[200px] bg-gray-400 bg-center bg-cover bg-no-repeat"

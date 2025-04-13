@@ -6,7 +6,7 @@ import React from "react";
 export default function NotificationPanel() {
   return (
     <Button size="icon" variant="ghost" asChild>
-      <Link href="/notification">
+      <Link href="/my-dashboard/notification">
         <BellIcon />
       </Link>
     </Button>

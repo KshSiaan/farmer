@@ -1,5 +1,5 @@
 export interface ProductType {
-  id: number;
+  id: string;
   farmer_id: number;
   category_id: number;
   name: string;
@@ -26,7 +26,7 @@ export interface Farmer {
 }
 
 export interface FarmType {
-  id: number;
+  id: string;
   farmer_id: number;
   farm_name: string;
   location: string;

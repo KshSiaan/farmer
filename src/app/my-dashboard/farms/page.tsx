@@ -23,7 +23,7 @@ export default async function MyFarms() {
   const data = call.data.data;
 
   return (
-    <main className="!py-8 !px-[7%]">
+    <main className="!py-8 !px-[2%]">
       <div className="flex flex-row justify-between items-center">
         <div className=""></div> <AddFarm />
       </div>

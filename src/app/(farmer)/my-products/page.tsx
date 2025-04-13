@@ -9,27 +9,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";
-import { PenIcon, Trash2Icon } from "lucide-react";
+import { PenIcon } from "lucide-react";
 import { getFetcher } from "@/lib/simplifier";
 import { cookies } from "next/headers";
 import { ProductType } from "@/types/itemTypes";
-
-const products = [
-  {
-    id: "01",
-    name: "Tomato",
-    category: "Vegitable",
-    price: "20/-",
-    harvest_date: "12-03-2025",
-  },
-  {
-    id: "02",
-    name: "Tomato",
-    category: "Vegitable",
-    price: "20/-",
-    harvest_date: "12-03-2025",
-  },
-];
+import Deleteprod from "./delete-prod";
 
 export default async function MyProducts() {
   const token = (await cookies()).get("token")?.value;
@@ -47,7 +31,7 @@ export default async function MyProducts() {
         </p>
       </div>
       <div className="flex flex-row justify-between items-center">
-        <div className=""></div> <Button>Add product</Button>
+        <div className=""></div>
       </div>
       <div className="!py-8">
         <Table className="bg-secondary">
@@ -76,12 +60,7 @@ export default async function MyProducts() {
                       Edit product
                     </Link>
                   </Button>
-                  <Button variant="destructive" className="" asChild disabled>
-                    <Link href="#">
-                      <Trash2Icon />
-                      Delete product
-                    </Link>
-                  </Button>
+                  <Deleteprod id={item.id} />
                 </TableCell>
               </TableRow>
             ))}

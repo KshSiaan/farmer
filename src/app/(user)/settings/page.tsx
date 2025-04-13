@@ -36,6 +36,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import DPUp from "./dpup";
 
 const profileFormSchema = z.object({
   name: z.string().min(2, {
@@ -152,13 +153,16 @@ export default function Page() {
           </Avatar>
         </div>
 
-        <Tabs defaultValue="profile" className="!mt-8">
-          <TabsList className="grid w-full grid-cols-3">
+        <Tabs defaultValue="dp" className="!mt-8">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="dp">Change Profile picture</TabsTrigger>
             <TabsTrigger value="profile">Profile</TabsTrigger>
             <TabsTrigger value="security">Security</TabsTrigger>
             <TabsTrigger value="preferences">Preferences</TabsTrigger>
           </TabsList>
-
+          <TabsContent value="dp" className="!mt-6">
+            <DPUp />
+          </TabsContent>
           <TabsContent value="profile" className="!mt-6">
             <Card>
               <CardHeader>

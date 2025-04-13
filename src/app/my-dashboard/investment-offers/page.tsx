@@ -1,5 +1,4 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -11,6 +10,7 @@ import {
 import { getFetcher } from "@/lib/simplifier";
 import { cookies } from "next/headers";
 import React from "react";
+import Approver from "./approver";
 
 export default async function Page() {
   const token = (await cookies()).get("token")?.value;
@@ -37,24 +37,20 @@ export default async function Page() {
               investor: { name: string };
               invest_status: string;
               amount: string;
-            }) => (
-              <TableRow key={i.id}>
-                <TableCell>{i.id}</TableCell>
-                <TableCell>{i.investor.name}</TableCell>
-                <TableCell>
-                  <Badge>{i.invest_status}</Badge>
-                </TableCell>
-                <TableCell>${i.amount}</TableCell>
-                <TableCell className="flex justify-center items-center">
-                  <Button
-                    variant={i.invest_status == "approved" ? "outline" : "farm"}
-                    disabled
-                  >
-                    {i.invest_status == "approved" ? "Approved" : "Approve"}
-                  </Button>
-                </TableCell>
-              </TableRow>
-            )
+            }) =>
+              i.invest_status != "approved" && (
+                <TableRow key={i.id}>
+                  <TableCell>{i.id}</TableCell>
+                  <TableCell>{i.investor.name}</TableCell>
+                  <TableCell>
+                    <Badge>{i.invest_status}</Badge>
+                  </TableCell>
+                  <TableCell>${i.amount}</TableCell>
+                  <TableCell className="flex justify-center items-center">
+                    <Approver id={i.id} />
+                  </TableCell>
+                </TableRow>
+              )
           )}
         </TableBody>
       </Table>

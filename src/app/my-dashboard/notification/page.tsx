@@ -26,16 +26,14 @@ export default async function Page() {
 
   return (
     <main className="!px-[7%] !py-12">
-      <h1 className="text-5xl font-bold text-center border-b !pb-4">
-        Notifications
-      </h1>
-      <div className="!my-8">
+      <div className="flex justify-between items-center !mb-8 !pb-8 border-b">
+        <h1 className="text-xl font-bold">Notifications</h1>
         <div className="flex justify-end items-center">
           <MarkAllRead />
         </div>
       </div>
       <div className="!space-y-8">
-        <Notifications />
+        <Notifications data={call.notifications} />
       </div>
     </main>
   );
