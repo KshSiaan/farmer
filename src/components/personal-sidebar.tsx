@@ -91,10 +91,6 @@ const data = {
           url: "/my-dashboard/investment-manage",
         },
         {
-          title: "Products",
-          url: "/my-dashboard/products",
-        },
-        {
           title: "Investors List",
           url: "/my-dashboard/investors",
         },

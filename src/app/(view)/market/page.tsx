@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -13,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { getFetcher } from "@/lib/simplifier";
 import { ProductType } from "@/types/itemTypes";
 import { cookies } from "next/headers";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -29,7 +29,15 @@ export default async function Page() {
   }
 
   const call = await getFetcher({ link: "/all-products", token: token?.value });
-  // console.log(call);
+  console.log(call);
+
+  if (call?.data.data.length === 0) {
+    return (
+      <div className="h-[50dvh] flex flex-col gap-8 justify-center items-center w-screen">
+        No Farm found
+      </div>
+    );
+  }
 
   if (!call.status) {
     return (
@@ -77,12 +85,15 @@ export default async function Page() {
       <div className="!px-6 w-screen h-auto !py-8">
         <h3 className="font-bold text-lg text-center">Top Offers</h3>
         <div className="!pt-8 grid grid-cols-7 gap-6">
-          {offers.map((item, index) => (
-            <div
-              key={index}
-              className="w-full bg-cover bg-center h-[200px] bg-gray-400 rounded-full bg-no-repeat hover:shadow-md shadow-black/50"
-              style={{ backgroundImage: item.image }}
-            ></div>
+          {offers.map((item) => (
+            <Image
+              src={item.image}
+              height={200}
+              width={200}
+              className="rounded-full h-[200px] w-[200px] object-center object-cover"
+              alt="thumbnail"
+              key={item.id}
+            />
           ))}
         </div>
       </div>
@@ -92,9 +103,12 @@ export default async function Page() {
           {productList.map((item, index) => (
             <Link key={index} href={`/market/product`}>
               <Card>
-                <CardHeader
+                <Image
+                  src={item.image}
+                  height={500}
+                  width={300}
+                  alt="thumbnail"
                   className="w-full h-[200px] bg-gray-400 bg-center bg-cover bg-no-repeat"
-                  style={{ backgroundImage: item.image }}
                 />
                 <CardContent className="">
                   <CardTitle>{item.name}</CardTitle>

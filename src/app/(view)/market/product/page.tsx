@@ -10,9 +10,9 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Image from "next/image";
 export default async function Page() {
   const cookieStore = await cookies();
   const token = cookieStore.get("token");
@@ -48,9 +48,12 @@ export default async function Page() {
         {productList.map((item) => (
           <Link key={item.id} href={`/market/product/${item.id}`}>
             <Card>
-              <CardHeader
+              <Image
+                src={item.image}
+                height={500}
+                width={300}
+                alt="thumbnail"
                 className="w-full h-[200px] bg-gray-400 bg-center bg-cover bg-no-repeat"
-                style={{ backgroundImage: item.image }}
               />
               <CardContent className="">
                 <CardTitle>{item.name}</CardTitle>

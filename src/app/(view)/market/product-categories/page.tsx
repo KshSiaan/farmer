@@ -1,6 +1,8 @@
 "use server";
 import { getFetcher } from "@/lib/simplifier";
 import { cookies } from "next/headers";
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default async function Page() {
@@ -24,18 +26,20 @@ export default async function Page() {
       </div>
       <div className="grid grid-cols-5 gap-6">
         {data.map((i: { id: string; icon: string; name: string }) => (
-          <div
-            className="border rounded-xl hover:scale-105 transition-all hover:shadow-sm cursor-pointer"
-            key={i.id}
-          >
-            <div
-              className="w-full h-[200px] bg-zinc-200 rounded-xl shadow-sm"
-              style={{ backgroundImage: i.icon }}
-            ></div>
-            <div className="!p-2">
-              <h4 className="text-lg font-bold">{i.name}</h4>
+          <Link href={"/market/product"} key={i.id}>
+            <div className="border rounded-xl hover:scale-105 transition-all hover:shadow-sm cursor-pointer">
+              <Image
+                src={i.icon}
+                height={500}
+                width={500}
+                alt="thumbnail"
+                className="w-full h-[200px] bg-zinc-200 rounded-xl shadow-sm object-cover object-center"
+              />
+              <div className="!p-2">
+                <h4 className="text-lg font-bold">{i.name}</h4>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </main>

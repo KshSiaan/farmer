@@ -68,7 +68,7 @@ export interface InsuranceType {
   coverage_details: string;
   coverage_amount: string;
   premium: string;
-  insurance_status: srting; // Example status options
+  insurance_status: string; // Example status options
   claim_status: string; // Example claim status options
   created_at: string; // ISO 8601 date-time string
   updated_at: string; // ISO 8601 date-time string

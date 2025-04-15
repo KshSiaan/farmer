@@ -31,6 +31,7 @@ export default function DPUp() {
           meth: "POST",
           data: formData,
         });
+        console.log(call);
 
         if (!call.status) {
           setLoading(false);

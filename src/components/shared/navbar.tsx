@@ -39,8 +39,8 @@ const NavLinks = [
 export default function Navbar({ user }: { user?: User }) {
   const profLinks = [
     {
-      label: user?.role === "super_admin" ? "Admin Dashboard" : "Dashboard",
-      key: user?.role === "super_admin" ? "/admin-dashboard" : "my-dashboard",
+      label: "Dashboard",
+      key: "my-dashboard",
       icon: LayoutDashboard,
     },
     {
@@ -71,6 +71,49 @@ export default function Navbar({ user }: { user?: User }) {
       icon: Settings2,
     },
   ];
+
+  const investorLinks = [
+    {
+      label: "Dashboard",
+      key: "my-dashboard",
+      icon: LayoutDashboard,
+    },
+    {
+      label: "My account",
+      key: "profile",
+      icon: UserIcon,
+    },
+    {
+      label: "My insurances",
+      key: "my-insurance",
+      icon: ShieldCheck,
+    },
+
+    {
+      label: "Settings",
+      key: "settings",
+      icon: Settings2,
+    },
+  ];
+  const adminLinks = [
+    {
+      label: "Admin Dashboard",
+      key: "/admin-dashboard",
+      icon: LayoutDashboard,
+    },
+    {
+      label: "My account",
+      key: "profile",
+      icon: UserIcon,
+    },
+
+    {
+      label: "Settings",
+      key: "settings",
+      icon: Settings2,
+    },
+  ];
+
   // const user = null;
   return (
     <nav className="h-[64px] w-dvw shadow-sm flex flex-row justify-between items-center !px-6">
@@ -130,15 +173,35 @@ export default function Navbar({ user }: { user?: User }) {
                   <SheetTitle>{user.name}</SheetTitle>
                   <div className="!py-4">
                     <ul className="text-sm font-semibold !space-y-4 text-zinc-600 list-inside">
-                      {profLinks.map((item, i) => (
-                        <li
-                          key={i}
-                          className="flex flex-row justify-start items-center gap-2 hover:text-zinc-900"
-                        >
-                          <item.icon className="size-4" />
-                          <Link href={item.key}>{item.label}</Link>
-                        </li>
-                      ))}
+                      {user?.role === "super_admin"
+                        ? adminLinks.map((item, i) => (
+                            <li
+                              key={i}
+                              className="flex flex-row justify-start items-center gap-2 hover:text-zinc-900"
+                            >
+                              <item.icon className="size-4" />
+                              <Link href={item.key}>{item.label}</Link>
+                            </li>
+                          ))
+                        : user?.role === "investor"
+                        ? investorLinks.map((item, i) => (
+                            <li
+                              key={i}
+                              className="flex flex-row justify-start items-center gap-2 hover:text-zinc-900"
+                            >
+                              <item.icon className="size-4" />
+                              <Link href={item.key}>{item.label}</Link>
+                            </li>
+                          ))
+                        : profLinks.map((item, i) => (
+                            <li
+                              key={i}
+                              className="flex flex-row justify-start items-center gap-2 hover:text-zinc-900"
+                            >
+                              <item.icon className="size-4" />
+                              <Link href={item.key}>{item.label}</Link>
+                            </li>
+                          ))}
                       <li className="flex flex-row justify-start items-center gap-2 hover:text-zinc-900">
                         <Logout />
                       </li>
