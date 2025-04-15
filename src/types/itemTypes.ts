@@ -58,3 +58,26 @@ interface Investor {
   id: number;
   name: string;
 }
+
+export interface InsuranceType {
+  id: string;
+  farm_id: string;
+  user_id: string;
+  provider: string;
+  policy_number: string;
+  coverage_details: string;
+  coverage_amount: string;
+  premium: string;
+  insurance_status: srting; // Example status options
+  claim_status: string; // Example claim status options
+  created_at: string; // ISO 8601 date-time string
+  updated_at: string; // ISO 8601 date-time string
+  user: {
+    id: number;
+    name: string;
+  };
+  farm: {
+    id: number;
+    farm_name: string;
+  };
+}

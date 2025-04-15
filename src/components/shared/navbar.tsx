@@ -19,6 +19,7 @@ import {
 import Logout from "./sub/logout";
 import { Button } from "../ui/button";
 import { User } from "@/types/userType";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 // import {
 //   DropdownMenu,
 //   DropdownMenuContent,
@@ -38,8 +39,8 @@ const NavLinks = [
 export default function Navbar({ user }: { user?: User }) {
   const profLinks = [
     {
-      label: "Dashboard",
-      key: "my-dashboard",
+      label: user?.role === "super_admin" ? "Admin Dashboard" : "Dashboard",
+      key: user?.role === "super_admin" ? "/admin-dashboard" : "my-dashboard",
       icon: LayoutDashboard,
     },
     {
@@ -118,9 +119,10 @@ export default function Navbar({ user }: { user?: User }) {
                   <span className="hover:underline cursor-pointer">
                     {user.name}
                   </span>
-                  <div className="size-10 bg-zinc-300 rounded-full flex justify-center items-center text-zinc-500 cursor-pointer">
-                    {user.name[0]}
-                  </div>
+                  <Avatar>
+                    <AvatarImage src={user.image} />
+                    <AvatarFallback>{user.name[0]}</AvatarFallback>
+                  </Avatar>
                 </span>
               </SheetTrigger>
               <SheetContent className="w-[400px] sm:w-[540px]">

@@ -45,14 +45,17 @@ const data = {
           title: "Farm Monitor",
           url: "/my-dashboard",
         },
+        { title: "Category Management", url: "/my-dashboard/categories" },
         {
           title: "Products",
           url: "/my-dashboard/products",
         },
+
         {
           title: "Logistics",
           url: "/my-dashboard/logistics",
         },
+        { title: "Insurance management", url: "/my-dashboard/insurance" },
       ],
     },
     {

@@ -12,7 +12,7 @@ export default function OrderAccept({
   return (
     <Button
       variant={status === "pending" ? "farm" : "secondary"}
-      onClick={() => {
+      onClick={async () => {
         console.log(id, status);
       }}
     >

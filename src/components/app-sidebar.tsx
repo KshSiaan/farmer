@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { BanknoteIcon, TractorIcon, User2Icon, VeganIcon } from "lucide-react";
+import { BanknoteIcon, TractorIcon, VeganIcon } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
@@ -45,6 +45,10 @@ const data = {
           url: "/admin-dashboard/farm-monitor",
         },
         {
+          title: "Category managment",
+          url: "/admin-dashboard/categories",
+        },
+        {
           title: "Farms",
           url: "/admin-dashboard/farms",
         },
@@ -66,18 +70,18 @@ const data = {
         },
       ],
     },
-    {
-      title: "Users",
-      url: "#",
-      icon: User2Icon,
-      isActive: true,
-      items: [
-        {
-          title: "User management",
-          url: "#",
-        },
-      ],
-    },
+    // {
+    //   title: "Users",
+    //   url: "#",
+    //   icon: User2Icon,
+    //   isActive: true,
+    //   items: [
+    //     {
+    //       title: "User management",
+    //       url: "#",
+    //     },
+    //   ],
+    // },
   ],
 };
 
