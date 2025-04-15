@@ -35,42 +35,41 @@ const NavLinks = [
   { label: "Impact", key: "impact" },
 ];
 
-const profLinks = [
-  {
-    label: "Dashboard",
-    key: "my-dashboard",
-    icon: LayoutDashboard,
-  },
-  {
-    label: "My account",
-    key: "profile",
-    icon: UserIcon,
-  },
-
-  {
-    label: "My Farms",
-    key: "my-farms",
-    icon: Sprout,
-  },
-  {
-    label: "Products",
-    key: "my-products",
-    icon: Package,
-  },
-  {
-    label: "My insurances",
-    key: "my-insurance",
-    icon: ShieldCheck,
-  },
-
-  {
-    label: "Settings",
-    key: "settings",
-    icon: Settings2,
-  },
-];
-
 export default function Navbar({ user }: { user?: User }) {
+  const profLinks = [
+    {
+      label: "Dashboard",
+      key: "my-dashboard",
+      icon: LayoutDashboard,
+    },
+    {
+      label: "My account",
+      key: "profile",
+      icon: UserIcon,
+    },
+
+    {
+      label: "My Farms",
+      key: "my-farms",
+      icon: Sprout,
+    },
+    {
+      label: "Products",
+      key: "my-products",
+      icon: Package,
+    },
+    {
+      label: "My insurances",
+      key: "my-insurance",
+      icon: ShieldCheck,
+    },
+
+    {
+      label: "Settings",
+      key: "settings",
+      icon: Settings2,
+    },
+  ];
   // const user = null;
   return (
     <nav className="h-[64px] w-dvw shadow-sm flex flex-row justify-between items-center !px-6">
@@ -111,7 +110,6 @@ export default function Navbar({ user }: { user?: User }) {
       </div>
 
       <div className="flex flex-row justify-end items-center gap-6 font-semibold">
-
         {user ? (
           <div className="flex justify-end items-center">
             <Sheet>

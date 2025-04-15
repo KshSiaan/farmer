@@ -26,6 +26,8 @@ import { Input } from "@/components/ui/input";
 import { formPostFetcher, getFetcher } from "@/lib/simplifier";
 import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
+import FarmModal from "@/app/(view)/farms-investors/farm-modal";
+import { FarmType } from "@/types/itemTypes";
 import { PenIcon } from "lucide-react";
 
 const formSchema = z.object({
@@ -46,7 +48,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 export default function EditFarm({ id }: { id: string }) {
   const [cookies] = useCookies(["token"]);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [done, setDone] = useState<boolean>(false);
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -60,36 +62,32 @@ export default function EditFarm({ id }: { id: string }) {
   });
 
   useEffect(() => {
-    async function getData() {
-      const call = await getFetcher({
-        link: `/farm-details/${id}`,
-        token: cookies.token,
-      });
+    async function getCurr() {
+      try {
+        const call = await getFetcher({
+          link: `/farm-details/${id}`,
+          token: cookies.token,
+        });
+        if (!call.status) {
+          console.error(call.message);
 
-      const data = call.data;
-      const {
-        farm_name,
-        location,
-        size,
-        crop_type,
-        target_investment,
-        current_investment,
-        // image, // intentionally ignored
-      } = data;
-
-      form.reset({
-        farm_name,
-        location,
-        size,
-        crop_type,
-        target_investment,
-        current_investment,
-      });
+          return;
+        }
+        const farm: FarmType = call.data;
+        form.reset({
+          farm_name: farm.farm_name,
+          location: farm.location,
+          size: farm.size,
+          crop_type: farm.crop_type,
+          target_investment: "",
+          current_investment: "",
+        });
+      } catch (error) {
+        console.error(error);
+      }
     }
-
-    getData();
+    getCurr();
   }, []);
-
   const onSubmit = async (data: FormValues) => {
     try {
       const formData = new FormData();
@@ -104,7 +102,7 @@ export default function EditFarm({ id }: { id: string }) {
       }
 
       const call = await formPostFetcher({
-        link: `/update-farm/${id}`,
+        link: "/add-farm",
         meth: "POST",
         token: cookies.token,
         data: formData,
@@ -114,7 +112,6 @@ export default function EditFarm({ id }: { id: string }) {
         console.error(call.error);
         return null;
       }
-      setModalOpen(false);
     } catch (error) {
       console.error(error);
     }
@@ -124,21 +121,15 @@ export default function EditFarm({ id }: { id: string }) {
 
   return (
     <>
-      <Dialog open={modalOpen}>
+      <Dialog>
         <DialogTrigger asChild>
-          <Button
-            variant="farm"
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          >
-            <PenIcon />
-            Edit Farm
+          <Button variant="farm">
+            <PenIcon /> Edit Farm
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>Add New Farm</DialogTitle>
+            <DialogTitle>Update this farm</DialogTitle>
             <DialogDescription>
               Enter the details of your farm below.
             </DialogDescription>
@@ -259,8 +250,8 @@ export default function EditFarm({ id }: { id: string }) {
                 )}
               />
 
-              <Button type="submit" className="w-full">
-                Submit
+              <Button type="submit" className="w-full" disabled={done}>
+                {done ? "Created Farm" : "Submit"}
               </Button>
             </form>
           </Form>

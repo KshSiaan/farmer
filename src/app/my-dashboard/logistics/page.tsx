@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -41,9 +41,10 @@ export default async function Page() {
 
   return (
     <div className="overflow-y-auto overflow-x-hidden !p-4 h-full">
-      <div className="flex justify-end items-center !mb-8">
+      {/* <div className="flex justify-end items-center !mb-8">
         <Button>Add Logistic</Button>
-      </div>
+      </div> */}
+      <h2 className="text-center text-xl !mb-8">Available Logistics</h2>
       <Table>
         <TableHeader>
           <TableRow>

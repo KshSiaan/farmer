@@ -45,7 +45,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 export default function AddFarm() {
   const [cookies] = useCookies(["token"]);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [done, setDone] = useState<boolean>(false);
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -82,7 +82,6 @@ export default function AddFarm() {
         console.error(call.error);
         return null;
       }
-      setModalOpen(false);
     } catch (error) {
       console.error(error);
     }
@@ -92,15 +91,9 @@ export default function AddFarm() {
 
   return (
     <>
-      <Dialog open={modalOpen}>
+      <Dialog>
         <DialogTrigger asChild>
-          <Button
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          >
-            Add Farm
-          </Button>
+          <Button>Add Farm</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
@@ -225,8 +218,8 @@ export default function AddFarm() {
                 )}
               />
 
-              <Button type="submit" className="w-full">
-                Submit
+              <Button type="submit" className="w-full" disabled={done}>
+                {done ? "Created Farm" : "Submit"}
               </Button>
             </form>
           </Form>

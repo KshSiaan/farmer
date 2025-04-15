@@ -11,9 +11,9 @@ import { Badge } from "@/components/ui/badge";
 import { cookies } from "next/headers";
 import { getFetcher } from "@/lib/simplifier";
 import { FarmType } from "@/types/itemTypes";
-import AddFarm from "./add-farm";
-import EditFarm from "./edit-farms";
-import DeleteFarm from "./delete-farm";
+// import AddFarm from "./add-farm";
+// import EditFarm from "./edit-farms";
+// import DeleteFarm from "./delete-farm";
 
 export default async function MyFarms() {
   const token = (await cookies()).get("token")?.value;
@@ -24,9 +24,10 @@ export default async function MyFarms() {
 
   return (
     <main className="!py-8 !px-[7%]">
-      <div className="flex flex-row justify-between items-center">
+      {/* <div className="flex flex-row justify-between items-center">
         <div className=""></div> <AddFarm />
-      </div>
+      </div> */}
+      <h1 className="text-4xl text-center">My Farms List</h1>
       <div className="!py-8">
         <Table className="bg-secondary">
           <TableHeader>
@@ -37,7 +38,7 @@ export default async function MyFarms() {
               <TableHead>Size</TableHead>
               <TableHead>Crop Type</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead className="text-center">Action</TableHead>
+              {/* <TableHead className="text-center">Action</TableHead> */}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -59,8 +60,8 @@ export default async function MyFarms() {
                   </Badge>
                 </TableCell>
                 <TableCell className="flex justify-center items-center gap-4">
-                  <EditFarm id={item.id} />
-                  <DeleteFarm id={item.id} />
+                  {/* <EditFarm id={item.id} />
+                  <DeleteFarm id={item.id} /> */}
                 </TableCell>
               </TableRow>
             ))}

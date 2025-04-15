@@ -1,7 +1,7 @@
 export interface ProductType {
   id: string;
   farmer_id: number;
-  category_id: number;
+  category_id: string;
   name: string;
   description: string;
   price: string;
