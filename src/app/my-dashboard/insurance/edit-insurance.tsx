@@ -22,7 +22,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { formPostFetcher, getFetcher } from "@/lib/simplifier";
+import { formPostFetcher, getFetcher, postFetcher } from "@/lib/simplifier";
 import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
 import { PenIcon } from "lucide-react";
@@ -82,7 +82,7 @@ export default function EditInsurance({ id }: { id: string }) {
         }
         const insurance: InsuranceType = call.data;
         form.reset({
-          farm_id: insurance.farm_id,
+          farm_id: String(insurance.farm_id),
           provider: insurance.provider,
           policy_number: insurance.policy_number,
           coverage_details: insurance.coverage_details,
@@ -100,22 +100,15 @@ export default function EditInsurance({ id }: { id: string }) {
 
   const onSubmit = async (data: FormValues) => {
     try {
-      const formData = new FormData();
-      formData.append("farm_id", data.farm_id);
-      formData.append("provider", data.provider);
-      formData.append("policy_number", data.policy_number);
-      formData.append("coverage_details", data.coverage_details);
-      formData.append("coverage_amount", data.coverage_amount);
-      formData.append("premium", data.premium);
-      formData.append("insurance_status", data.insurance_status);
-      formData.append("claim_status", data.claim_status);
-
-      const call = await formPostFetcher({
+      const final = { ...data, _method: "PUT" };
+      const call = await postFetcher({
         link: `/update-insurance/${id}`,
-        meth: "PUT",
+        meth: "POST",
         token: cookies.token,
-        data: formData,
+        data: final,
       });
+
+      console.log(call);
 
       if (!call.status) {
         console.error(call.error);

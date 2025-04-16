@@ -43,6 +43,7 @@ const formSchema = z.object({
 
 export default function EditProd({ id }: { id: string }) {
   const [cookies] = useCookies(["token"]);
+  const [done, setDone] = useState(false);
   const [cats, setCats] = useState<{ id: string; name: string }[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -106,17 +107,20 @@ export default function EditProd({ id }: { id: string }) {
     console.log("Submitted Values:", values);
     try {
       const call = await postFetcher({
-        link: "/add-product",
+        link: `/update-product/${id}`,
         meth: "POST",
         token: cookies.token,
-        data: values,
+        data: { ...values, _method: "PUT" },
       });
       if (!call.status) {
         console.error(call.error);
         return;
       }
       console.log(call);
-      form.reset();
+
+      setDone(true);
+      console.log(call);
+      // form.reset();
     } catch (error) {
       console.error(error);
     }
@@ -222,7 +226,9 @@ export default function EditProd({ id }: { id: string }) {
                 )}
               />
               <div className="!py-8 flex justify-center items-center">
-                <Button type="submit">Submit</Button>
+                <Button type="submit" disabled={done}>
+                  {done ? "Product updated Successfully" : "Submit"}
+                </Button>
               </div>
             </form>
           </Form>

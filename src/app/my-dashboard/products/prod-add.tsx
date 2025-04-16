@@ -41,6 +41,7 @@ const formSchema = z.object({
 
 export default function ProdAdd() {
   const [cookies] = useCookies(["token"]);
+  const [done, setDone] = useState(false);
   const [cats, setCats] = useState<{ id: string; name: string }[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -86,8 +87,9 @@ export default function ProdAdd() {
         console.error(call.error);
         return;
       }
+      setDone(true);
       console.log(call);
-      form.reset();
+      // form.reset();
     } catch (error) {
       console.error(error);
     }
@@ -193,7 +195,9 @@ export default function ProdAdd() {
                 )}
               />
               <div className="!py-8 flex justify-center items-center">
-                <Button type="submit">Submit</Button>
+                <Button type="submit" disabled={done}>
+                  {done ? "Product Addedd Successfully" : "Submit"}
+                </Button>
               </div>
             </form>
           </Form>

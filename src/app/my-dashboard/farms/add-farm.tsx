@@ -78,10 +78,11 @@ export default function AddFarm() {
         data: formData,
       });
 
-      if (!call.status) {
-        console.error(call.error);
-        return null;
-      }
+      // if (!call.status) {
+      //   console.error(call.error);
+      //   return null;
+      // }
+      setDone(true);
     } catch (error) {
       console.error(error);
     }
@@ -218,7 +219,7 @@ export default function AddFarm() {
                 )}
               />
 
-              <Button type="submit" className="w-full" disabled={done}>
+              <Button type="submit" className="w-full !mt-8" disabled={done}>
                 {done ? "Created Farm" : "Submit"}
               </Button>
             </form>

@@ -59,6 +59,7 @@ export default function LoginForm() {
   const [waiting, setWaiting] = useState<boolean>(false);
   const [, setCookie] = useCookies(["token"]);
   const navig = useRouter();
+  const [err, setErr] = useState("");
 
   // Initialize form with React Hook Form and Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({
@@ -85,6 +86,9 @@ export default function LoginForm() {
       });
       console.log("Response from server:", call);
 
+      if (!call.status) {
+        setErr(call.message.email[0]);
+      }
       if (call.access_token) {
         console.log("Setting token and redirecting");
         setCookie("token", call.access_token);
@@ -106,8 +110,8 @@ export default function LoginForm() {
           <CardTitle className="text-2xl font-bold text-zinc-900">
             Register
           </CardTitle>
-          <CardDescription className="text-zinc-500">
-            Create your account absolutely for free
+          <CardDescription className={err ? "text-red-500" : "text-zinc-500"}>
+            {err ? err : "Create your account absolutely for free"}
           </CardDescription>
         </CardHeader>
         <Form {...form}>

@@ -45,7 +45,6 @@ const data = {
           title: "Farm Monitor",
           url: "/my-dashboard",
         },
-        { title: "Category Management", url: "/my-dashboard/categories" },
         {
           title: "Products",
           url: "/my-dashboard/products",
@@ -115,6 +114,7 @@ export function AppSidebar({
   user,
   ...props
 }: React.ComponentProps<typeof Sidebar> & { user: User }) {
+  if (!user?.role) return null; // or loading spinner
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>

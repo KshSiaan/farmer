@@ -42,11 +42,23 @@ export default async function Page() {
   if (!userCall.status) {
     console.error(userCall.message);
   }
+  const userData: User = userCall.data;
   if (!call.status) {
-    console.error(call.message);
+    // console.error(call.message);
+    return (
+      <div className="!p-6">
+        {userData.role === "farmer" && (
+          <div className="flex flex-row justify-end items-center">
+            <ProdAdd />
+          </div>
+        )}
+        <div className="flex justify-center items-center h-12 w-full">
+          {call.message}
+        </div>
+      </div>
+    );
   }
 
-  const userData: User = userCall.data;
   return (
     <div className="overflow-y-auto overflow-x-hidden !p-4 h-full">
       {userData.role === "farmer" && (

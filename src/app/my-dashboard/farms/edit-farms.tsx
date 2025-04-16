@@ -102,16 +102,14 @@ export default function EditFarm({ id }: { id: string }) {
       }
 
       const call = await formPostFetcher({
-        link: "/add-farm",
+        link: `/update-farm/${id}`,
         meth: "POST",
         token: cookies.token,
         data: formData,
       });
+      console.log(call);
 
-      if (!call.status) {
-        console.error(call.error);
-        return null;
-      }
+      setDone(true);
     } catch (error) {
       console.error(error);
     }
@@ -251,7 +249,7 @@ export default function EditFarm({ id }: { id: string }) {
               />
 
               <Button type="submit" className="w-full" disabled={done}>
-                {done ? "Created Farm" : "Submit"}
+                {done ? "Updated Farm" : "Submit"}
               </Button>
             </form>
           </Form>

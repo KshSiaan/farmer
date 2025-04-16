@@ -9,9 +9,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { SquareArrowOutUpRight } from "lucide-react";
+// import { Button } from "@/components/ui/button";
+// import Link from "next/link";
+// import { SquareArrowOutUpRight } from "lucide-react";
 import { getFetcher } from "@/lib/simplifier";
 import { cookies } from "next/headers";
 
@@ -91,7 +91,7 @@ export default async function Page() {
                 <TableHead>Insurance Provider</TableHead>
                 <TableHead>Claim Status</TableHead>
                 <TableHead>Coverage Amount</TableHead>
-                <TableHead className="text-center">Action</TableHead>
+                {/* <TableHead className="text-center">Action</TableHead> */}
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -101,14 +101,14 @@ export default async function Page() {
                   <TableCell>{item.provider}</TableCell>
                   <TableCell>{item.claim_status}</TableCell>
                   <TableCell>{item.coverage_amount}</TableCell>
-                  <TableCell className=" flex justify-center items-center">
+                  {/* <TableCell className=" flex justify-center items-center">
                     <Button variant="farm" className="" asChild>
                       <Link href={`/`}>
                         Apply for insurance
                         <SquareArrowOutUpRight />
                       </Link>
                     </Button>
-                  </TableCell>
+                  </TableCell> */}
                 </TableRow>
               ))}
             </TableBody>
