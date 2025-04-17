@@ -60,13 +60,16 @@ export default function LoginForm() {
 
       if (call.access_token) {
         setCookie("token", call.access_token);
+
         navig.push("/");
       } else {
         console.log("Token not found");
       }
-      if (call.status) {
+      if (!call.status) {
         navig.push("/");
+        return;
       }
+      navig.push("/set_password");
     } catch (error) {
       console.error(error);
     }

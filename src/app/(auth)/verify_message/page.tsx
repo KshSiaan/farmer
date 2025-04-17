@@ -12,7 +12,7 @@ export default function LoginForm() {
         </CardHeader>
         <CardContent className="!space-y-6">
           <Button className="w-full" variant="farm" asChild>
-            <Link href="/otp-verify">Verify OTP now</Link>
+            <Link href="/otp_verify">Verify OTP now</Link>
           </Button>
           <Button className="w-full" asChild>
             <Link href="/">Later</Link>
