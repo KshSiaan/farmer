@@ -53,8 +53,8 @@ export default async function MyFarms() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map((item: CatType) => (
-              <TableRow key={item.id}>
+            {data.map((item: CatType, i: number) => (
+              <TableRow key={i}>
                 <TableCell className="font-medium">{item.id}</TableCell>
                 <TableCell>
                   <Image

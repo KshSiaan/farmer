@@ -36,10 +36,10 @@ const data = {
       icon: VeganIcon,
       isActive: true,
       items: [
-        {
-          title: "Market",
-          url: "/admin-dashboard/market",
-        },
+        // {
+        //   title: "Farms",
+        //   url: "/admin-dashboard/farmss",
+        // },
         {
           title: "Farm Monitor",
           url: "/admin-dashboard/farm-monitor",
@@ -60,10 +60,6 @@ const data = {
       icon: BanknoteIcon,
       isActive: true,
       items: [
-        {
-          title: "Investment and transitions",
-          url: "/admin-dashboard/trans",
-        },
         {
           title: "See investors",
           url: "/admin-dashboard/investors",

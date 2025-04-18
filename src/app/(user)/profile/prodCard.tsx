@@ -9,28 +9,7 @@ import { formatDistanceToNow } from "date-fns";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-
-export interface ProductType {
-  id: string;
-  farmer_id: number;
-  category_id: number;
-  name: string;
-  description: string;
-  price: string;
-  harvest_date: string;
-  image: string;
-  created_at: string;
-  updated_at: string;
-  farmer: {
-    id: number;
-    name: string;
-  };
-  category: {
-    id: number;
-    name: string;
-    icon: string;
-  };
-}
+import { ProductType } from "@/types/itemTypes";
 
 interface ProductCardProps {
   product: ProductType;

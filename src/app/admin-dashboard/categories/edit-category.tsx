@@ -69,10 +69,12 @@ export default function EditCategory({ id }: { id: string }) {
     async function getCurr() {
       try {
         const call = await getFetcher({
-          link: `/update-categorie/${id}`,
+          link: `/details-categories/${id}`,
           token: cookies.token,
         });
         if (!call.status) {
+          console.log(call);
+
           console.error(call.message);
           return;
         }

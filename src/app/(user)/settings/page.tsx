@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
-import { Loader2, Save, User } from "lucide-react";
+import { Loader2, Save, UserIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -29,6 +29,9 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DPUp from "./dpup";
+import { getFetcher, postFetcher } from "@/lib/simplifier";
+import { useCookies } from "react-cookie";
+import { useRouter } from "next/navigation";
 
 const profileFormSchema = z.object({
   name: z.string().min(2, {
@@ -61,15 +64,9 @@ const profileFormSchema = z.object({
 
 const passwordFormSchema = z
   .object({
-    currentPassword: z.string().min(8, {
-      message: "Password must be at least 8 characters.",
-    }),
-    newPassword: z.string().min(8, {
-      message: "Password must be at least 8 characters.",
-    }),
-    confirmPassword: z.string().min(8, {
-      message: "Password must be at least 8 characters.",
-    }),
+    currentPassword: z.string(),
+    newPassword: z.string(),
+    confirmPassword: z.string(),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
     message: "Passwords do not match",
@@ -81,7 +78,8 @@ type PasswordFormValues = z.infer<typeof passwordFormSchema>;
 
 export default function Page() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const [cookies] = useCookies(["token"]);
+  const navig = useRouter();
   // Default values for the form
   const defaultValues: Partial<ProfileFormValues> = {
     name: "John Doe",
@@ -117,10 +115,42 @@ export default function Page() {
     }, 1000);
   }
 
-  function onPasswordSubmit(data: PasswordFormValues) {
+  async function onPasswordSubmit(data: PasswordFormValues) {
     setIsLoading(true);
+    return;
+    try {
+      const getUser = await getFetcher({
+        link: "/auth/profile",
+        token: cookies.token,
+      });
 
-    // Simulate API call
+      if (!getUser.status) {
+        console.error(getUser.message);
+
+        return;
+      }
+
+      const call = await postFetcher({
+        link: "/auth/reset-password",
+        meth: "POST",
+        token: cookies.token,
+        data: {
+          email: getUser.data.email,
+          password: data.newPassword,
+          password_confirmation: data.confirmPassword,
+        },
+      });
+
+      if (!call.status) {
+        console.error(call.message);
+        setIsLoading(false);
+        return;
+      }
+      navig.push("/");
+    } catch (error) {
+      setIsLoading(false);
+      console.error(error);
+    }
     setTimeout(() => {
       console.log(data);
       setIsLoading(false);
@@ -140,7 +170,7 @@ export default function Page() {
           <Avatar className="h-16 w-16">
             <AvatarImage src="/placeholder.svg" alt="User" />
             <AvatarFallback>
-              <User className="h-8 w-8" />
+              <UserIcon className="h-8 w-8" />
             </AvatarFallback>
           </Avatar>
         </div>

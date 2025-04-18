@@ -39,6 +39,12 @@ export default async function Page() {
       <section className="!mt-8 !space-y-4">
         <h2 className="text-4xl font-bold">{user.name}</h2>
         <p className="text-secondary-foreground text-sm">{user.email}</p>
+        <p className="text-secondary-foreground text-sm capitalize">
+          Role: {user.role}
+        </p>
+        <p className="text-secondary-foreground text-sm capitalize">
+          Address: {user.address}
+        </p>
       </section>
 
       {/* <section className="!py-8">

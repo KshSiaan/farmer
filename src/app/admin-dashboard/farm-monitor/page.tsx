@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import {
   Droplet,
@@ -71,7 +72,7 @@ export default function Dashboard() {
   const [selectedFarmId, setSelectedFarmId] = useState<string>("");
   const [monitoringData, setMonitoringData] = useState<MonitoringData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [cookies] = useCookies(["token"]);
   // Fetch farms on component mount
   useEffect(() => {
@@ -201,6 +202,13 @@ export default function Dashboard() {
           </Select>
         </div>
       </div>
+
+      {error && (
+        <Alert variant="destructive">
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
 
       {loading ? (
         <div className="flex justify-center items-center h-64">

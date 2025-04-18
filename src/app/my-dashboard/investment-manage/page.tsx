@@ -1,5 +1,4 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -12,12 +11,13 @@ import { getFetcher } from "@/lib/simplifier";
 import { User } from "@/types/userType";
 import { cookies } from "next/headers";
 import React from "react";
+import ViewInvestor from "./view-investor";
+import { InvestmentType } from "@/types/itemTypes";
 
 export default async function Page() {
   const token = (await cookies()).get("token")?.value;
   const userCall = await getFetcher({ link: "/auth/profile", token });
   const call = await getFetcher({ link: "/investment-get", token });
-
 
   if (!userCall.status) {
     console.error(userCall.message);
@@ -44,31 +44,21 @@ export default async function Page() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map(
-            (i: {
-              id: string;
-              investor: { name: string };
-              invest_status: string;
-              amount: string;
-              farm: { farm_name: string };
-            }) => (
-              <TableRow key={i.id}>
-                <TableCell>{i.id}</TableCell>
-                <TableCell>
-                  {userData.role == "farmer"
-                    ? i.investor.name
-                    : i.farm.farm_name}
-                </TableCell>
-                <TableCell>
-                  <Badge>{i.invest_status}</Badge>
-                </TableCell>
-                <TableCell>${i.amount}</TableCell>
-                <TableCell className="flex justify-center items-center">
-                  <Button variant="farm">View</Button>
-                </TableCell>
-              </TableRow>
-            )
-          )}
+          {data.map((i: InvestmentType) => (
+            <TableRow key={i.id}>
+              <TableCell>{i.id}</TableCell>
+              <TableCell>
+                {userData.role == "farmer" ? i.investor.name : i.farm.farm_name}
+              </TableCell>
+              <TableCell>
+                <Badge>{i.invest_status}</Badge>
+              </TableCell>
+              <TableCell>${i.amount}</TableCell>
+              <TableCell className="flex justify-center items-center">
+                <ViewInvestor data={i} />
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </div>
