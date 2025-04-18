@@ -60,14 +60,16 @@ export default async function Page() {
         </div>
       </section> */}
 
-      <section className="!py-8">
-        <h2 className="font-bold w-full border-b !pb-4">My Prodcuts</h2>
-        <div className="w-full h-auto grid grid-cols-4 gap-4 !py-4">
-          {prods.map((i: ProductType) => (
-            <ProductCard product={i} key={i.id} />
-          ))}
-        </div>
-      </section>
+      {user.role === "farmer" && (
+        <section className="!py-8">
+          <h2 className="font-bold w-full border-b !pb-4">My Prodcuts</h2>
+          <div className="w-full h-auto grid grid-cols-4 gap-4 !py-4">
+            {prods.map((i: ProductType) => (
+              <ProductCard product={i} key={i.id} />
+            ))}
+          </div>
+        </section>
+      )}
     </main>
   );
 }

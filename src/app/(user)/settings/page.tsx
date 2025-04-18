@@ -117,7 +117,6 @@ export default function Page() {
 
   async function onPasswordSubmit(data: PasswordFormValues) {
     setIsLoading(true);
-    return;
     try {
       const getUser = await getFetcher({
         link: "/auth/profile",
