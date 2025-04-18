@@ -107,13 +107,13 @@ export default async function FarmsPage() {
                 Connect with investors looking to support agricultural ventures
               </p>
             </div>
-            <Button
+            {/* <Button
               variant="link"
               className="text-green-600 dark:text-green-500 p-0 h-auto font-medium"
             >
               View All Investors
               <ArrowUpRight className="h-4 w-4 !ml-1" />
-            </Button>
+            </Button> */}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -172,9 +172,12 @@ export default async function FarmsPage() {
           <Button
             variant="link"
             className="text-green-600 dark:text-green-500 p-0 h-auto font-medium"
+            asChild
           >
-            Visit Marketplace
-            <ArrowUpRight className="h-4 w-4 !ml-1" />
+            <Link href="/marketplace">
+              Visit Marketplace
+              <ArrowUpRight className="h-4 w-4 !ml-1" />
+            </Link>
           </Button>
         </div>
 
@@ -427,7 +430,7 @@ function FarmCard({ farm }: { farm: FarmType }) {
         </div> */}
       </CardContent>
       <CardFooter className="!pt-0">
-        <FarmModal farm={farm}/>
+        <FarmModal farm={farm} />
       </CardFooter>
     </Card>
   );
