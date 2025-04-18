@@ -1,13 +1,13 @@
 // "use client";
 "use server";
-import { Button } from "@/components/ui/button";
+
 import {
   Card,
   CardContent,
   CardDescription,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+
 // import setImg from "@/lib/imgSetter";
 import { getFetcher } from "@/lib/simplifier";
 import { ProductType } from "@/types/itemTypes";
@@ -15,6 +15,7 @@ import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import Search from "./search";
 
 export default async function Page() {
   const cookieStore = await cookies();
@@ -69,17 +70,7 @@ export default async function Page() {
       <div className="!px-6 w-screen h-auto !py-8">
         <h3 className="font-bold text-lg text-center !mb-8">Find poducts</h3>
         <div className="w-2/3 !mx-auto flex flex-row justify-center items-center gap-4">
-          <div className="flex-1">
-            <Input placeholder="Search Product.." />
-          </div>
-          <Button variant="farm">
-            <Link href="market/product">Search Product</Link>
-          </Button>
-          <Button>
-            <Link href="market/product-categories">
-              Explore Product Categories
-            </Link>
-          </Button>
+          <Search/>
         </div>
       </div>
       <div className="!px-6 w-screen h-auto !py-8">
