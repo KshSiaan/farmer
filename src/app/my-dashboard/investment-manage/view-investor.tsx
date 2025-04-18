@@ -11,16 +11,16 @@ import type { InvestmentType } from "@/types/itemTypes";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Landmark, User, Percent, DollarSign, Clock } from "lucide-react";
+import { Landmark, User, Clock } from "lucide-react";
 
 export default function ViewInvestor({ data }: { data: InvestmentType }) {
-  // Format currency
-  const formatCurrency = (amount: string) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(Number.parseFloat(amount));
-  };
+  //   // Format currency
+  //   const formatCurrency = (amount: string) => {
+  //     return new Intl.NumberFormat("en-US", {
+  //       style: "currency",
+  //       currency: "USD",
+  //     }).format(Number.parseFloat(amount));
+  //   };
 
   // Format date
   const formatDate = (dateString: string) => {
@@ -129,7 +129,7 @@ export default function ViewInvestor({ data }: { data: InvestmentType }) {
         </div>
 
         {/* Financial Details */}
-        <Card className="mt-6">
+        {/* <Card className="mt-6">
           <CardHeader className="pb-2">
             <CardTitle className="text-md flex items-center gap-2">
               <DollarSign className="h-5 w-5" />
@@ -159,7 +159,7 @@ export default function ViewInvestor({ data }: { data: InvestmentType }) {
               </div>
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
 
         {/* <div className="flex justify-end mt-6">
           <Button variant="outline" className="mr-2">
