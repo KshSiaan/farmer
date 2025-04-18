@@ -93,6 +93,14 @@ const data = {
           title: "Investors List",
           url: "/my-dashboard/investors",
         },
+        {
+          title: "Insurance",
+          url: "/my-dashboard/insurance",
+        },
+        {
+          title: "Logistics",
+          url: "/my-dashboard/logistics",
+        },
       ],
     },
     {
