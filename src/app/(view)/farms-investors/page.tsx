@@ -174,7 +174,7 @@ export default async function FarmsPage() {
             className="text-green-600 dark:text-green-500 p-0 h-auto font-medium"
             asChild
           >
-            <Link href="/marketplace">
+            <Link href="/market">
               Visit Marketplace
               <ArrowUpRight className="h-4 w-4 !ml-1" />
             </Link>
@@ -280,8 +280,11 @@ export default async function FarmsPage() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full bg-green-600 hover:bg-green-700">
-                  List Your Farm
+                <Button
+                  className="w-full bg-green-600 hover:bg-green-700"
+                  asChild
+                >
+                  <Link href={"/my-dashboard"}>List Your Farm </Link>
                 </Button>
               </CardFooter>
             </Card>
@@ -358,8 +361,11 @@ export default async function FarmsPage() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full bg-green-600 hover:bg-green-700">
-                  Become an Investor
+                <Button
+                  className="w-full bg-green-600 hover:bg-green-700"
+                  asChild
+                >
+                  <Link href={"/my-dashboard"}>Become an Investor</Link>
                 </Button>
               </CardFooter>
             </Card>

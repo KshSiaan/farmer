@@ -14,6 +14,7 @@ import { FarmType } from "@/types/itemTypes";
 import AddFarm from "./add-farm";
 import EditFarm from "./edit-farms";
 import DeleteFarm from "./delete-farm";
+import UpdateFarmMonitor from "./update-farm-monitor";
 
 export default async function MyFarms() {
   const token = (await cookies()).get("token")?.value;
@@ -59,6 +60,7 @@ export default async function MyFarms() {
                   </Badge>
                 </TableCell>
                 <TableCell className="flex justify-center items-center gap-4">
+                  <UpdateFarmMonitor id={item.id} />
                   <EditFarm id={item.id} />
                   <DeleteFarm id={item.id} />
                 </TableCell>
