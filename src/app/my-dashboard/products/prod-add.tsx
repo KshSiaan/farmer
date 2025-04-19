@@ -28,10 +28,11 @@ import { useForm } from "react-hook-form";
 import React, { useEffect, useState } from "react";
 import { z } from "zod";
 import { Textarea } from "@/components/ui/textarea";
-import { getFetcher, postFetcher } from "@/lib/simplifier";
+import { formPostFetcher, getFetcher } from "@/lib/simplifier";
 import { useCookies } from "react-cookie";
 
 const formSchema = z.object({
+  image: z.any(),
   name: z.string().min(1, "Product name is required"),
   category_id: z.string().min(1, "Select a category"),
   description: z.string().min(1, "Description is required"),
@@ -43,10 +44,12 @@ export default function ProdAdd() {
   const [cookies] = useCookies(["token"]);
   const [done, setDone] = useState(false);
   const [cats, setCats] = useState<{ id: string; name: string }[]>([]);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
+      image: "",
       category_id: "",
       description: "",
       price: "",
@@ -66,7 +69,6 @@ export default function ProdAdd() {
           return;
         }
         setCats(call.data.data);
-        console.log(call.data.data);
       } catch (error) {
         console.error(error);
       }
@@ -76,22 +78,33 @@ export default function ProdAdd() {
 
   const submitHandler = async (values: z.infer<typeof formSchema>) => {
     console.log("Submitted Values:", values);
+
+    const formData = new FormData();
+    formData.append("image", values.image[0]);
+    formData.append("name", values.name);
+    formData.append("category_id", values.category_id);
+    formData.append("description", values.description);
+    formData.append("price", values.price);
+    formData.append("harvest_date", values.harvest_date);
+
     try {
-      const call = await postFetcher({
+      const call = await formPostFetcher({
         link: "/add-product",
         meth: "POST",
         token: cookies.token,
-        data: values,
+        data: formData,
       });
+
       if (!call.status) {
-        console.error(call.error);
+        console.error(call);
         return;
       }
+
       setDone(true);
-      console.log(call);
-      // form.reset();
+      console.log("Product added successfully:", call);
+      // form.reset(); // Optional reset
     } catch (error) {
-      console.error(error);
+      console.error("Error adding product:", error);
     }
   };
 
@@ -112,6 +125,27 @@ export default function ProdAdd() {
             >
               <FormField
                 control={form.control}
+                name="image"
+                render={({ field: { onChange, ref } }) => (
+                  <FormItem>
+                    <FormLabel>Product Image</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          onChange(e.target.files);
+                        }}
+                        ref={ref}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
@@ -123,6 +157,7 @@ export default function ProdAdd() {
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="category_id"
@@ -150,6 +185,7 @@ export default function ProdAdd() {
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="price"
@@ -163,6 +199,7 @@ export default function ProdAdd() {
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="description"
@@ -181,6 +218,7 @@ export default function ProdAdd() {
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="harvest_date"
@@ -194,9 +232,10 @@ export default function ProdAdd() {
                   </FormItem>
                 )}
               />
+
               <div className="!py-8 flex justify-center items-center">
                 <Button type="submit" disabled={done}>
-                  {done ? "Product Addedd Successfully" : "Submit"}
+                  {done ? "Product Added Successfully" : "Submit"}
                 </Button>
               </div>
             </form>
