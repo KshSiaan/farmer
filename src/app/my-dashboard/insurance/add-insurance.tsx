@@ -25,6 +25,7 @@ import { Input } from "@/components/ui/input";
 import { formPostFetcher } from "@/lib/simplifier";
 import { useCookies } from "react-cookie";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   farm_id: z.string().min(1, "Farm ID is required"),
@@ -74,7 +75,10 @@ export default function AddInsurance() {
         token: cookies.token,
         data: formData,
       });
-
+      if (!call.status) {
+        toast(call.message);
+        return;
+      }
       setDone(true);
     } catch (error) {
       console.error(error);

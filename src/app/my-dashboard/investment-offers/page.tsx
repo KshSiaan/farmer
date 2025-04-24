@@ -17,6 +17,7 @@ export default async function Page() {
   const call = await getFetcher({ link: "/investment-get", token });
 
   const data = call.data.data;
+  console.log(data);
 
   return (
     <div className="overflow-y-auto overflow-x-hidden !p-4 h-full">

@@ -28,6 +28,7 @@ import { formPostFetcher, getFetcher } from "@/lib/simplifier";
 import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
 import { PenIcon } from "lucide-react";
+import { toast } from "sonner";
 
 // Define the category type
 interface CategoryType {
@@ -94,6 +95,7 @@ export default function EditCategory({ id }: { id: string }) {
   const onSubmit = async (data: FormValues) => {
     try {
       const formData = new FormData();
+      formData.append("_method", "PUT");
       formData.append("name", data.name);
       formData.append("description", data.description);
       if (data.icon && data.icon instanceof FileList && data.icon.length > 0) {
@@ -102,14 +104,14 @@ export default function EditCategory({ id }: { id: string }) {
 
       const call = await formPostFetcher({
         link: `/update-categorie/${id}`,
-        meth: "PUT",
+        meth: "POST",
         token: cookies.token,
         data: formData,
       });
 
       if (!call.status) {
-        console.error(call.error);
-        return null;
+        toast(call.message);
+        return;
       }
 
       setDone(true);

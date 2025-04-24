@@ -21,6 +21,7 @@ export default async function MyFarms() {
   const call = await getFetcher({ link: "/insurance-list", token });
 
   const data = call.data.data;
+  console.log(call);
 
   return (
     <main className="!py-8 !px-[2%]">
