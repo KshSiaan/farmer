@@ -33,7 +33,7 @@ export default function OrderAccept({
         navig.refresh();
       }}
     >
-      {status === "pending" ? "Accept" : "Cancel"}
+      {status === "pending" ? "Accept" : "Delivered"}
     </Button>
   );
 }

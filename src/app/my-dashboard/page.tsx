@@ -93,8 +93,8 @@ export default function Dashboard() {
           setError("No farms found");
         }
       } catch (err) {
-        setError("Failed to fetch farms");
-        console.error(err);
+        // setError("Failed to fetch farms");
+        console.log(err);
       } finally {
         setLoading(false);
       }

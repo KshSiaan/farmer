@@ -97,10 +97,6 @@ const data = {
           title: "Insurance",
           url: "/my-dashboard/insurance",
         },
-        {
-          title: "Logistics",
-          url: "/my-dashboard/logistics",
-        },
       ],
     },
     {
