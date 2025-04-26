@@ -16,14 +16,14 @@ export default function DeleteCat({ id }: { id: string }) {
         onClick={async () => {
           try {
             const call = await deleteFetcher({
-              link: `/delete-category/${id}`,
+              link: `/delete-categories/${id}`,
               token: cookies.token,
             });
             console.log(call);
 
             if (!call.status) {
               toast(call.message);
-              console.error(call);
+              // console.error(call);
               return;
             }
 
