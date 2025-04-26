@@ -101,6 +101,9 @@ export default function EditInsurance({ id }: { id: string }) {
   const onSubmit = async (data: FormValues) => {
     try {
       const final = { ...data, _method: "PUT" };
+
+      console.log(final);
+
       const call = await postFetcher({
         link: `/update-insurance/${id}`,
         meth: "POST",

@@ -12,6 +12,7 @@ import { getFetcher } from "@/lib/simplifier";
 import EditCategory from "./edit-category";
 import Image from "next/image";
 import AddCategory from "./add-category";
+import DeleteCat from "./delete-category";
 
 interface CatType {
   id: string;
@@ -76,6 +77,7 @@ export default async function MyFarms() {
                 <TableCell>{item.updated_at}</TableCell>
                 <TableCell className="flex justify-center items-center gap-4">
                   <EditCategory id={item.id} />
+                  <DeleteCat id={item.id} />
                 </TableCell>
               </TableRow>
             ))}

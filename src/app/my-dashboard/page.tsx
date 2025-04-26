@@ -80,8 +80,9 @@ export default function Dashboard() {
       try {
         const response = await getFetcher({
           link: "/farms",
-          token: cookies.token, // Replace with actual token retrieval
+          token: cookies.token,
         });
+
         console.log(response);
 
         const farmResponse = response as FarmResponse;

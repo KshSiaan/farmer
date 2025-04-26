@@ -125,7 +125,7 @@ export default function EditCategory({ id }: { id: string }) {
       <Dialog>
         <DialogTrigger asChild>
           <Button variant="farm">
-            <PenIcon /> Edit Category
+            <PenIcon /> Edit
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[500px]">

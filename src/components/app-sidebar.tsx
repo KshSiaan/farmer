@@ -64,6 +64,10 @@ const data = {
           title: "See investors",
           url: "/admin-dashboard/investors",
         },
+        {
+          title: "Farmers List",
+          url: "/admin-dashboard/farmers",
+        },
       ],
     },
     // {

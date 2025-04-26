@@ -217,7 +217,7 @@ export default function Navbar({ user }: { user?: User }) {
               <Link href="/login">Login</Link>
             </Button>
             <Button variant="farm" asChild>
-              <Link href="/register">Sign in</Link>
+              <Link href="/register">Sign up</Link>
             </Button>
           </>
         )}
