@@ -31,6 +31,7 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+// import { toast } from "sonner";
 
 const formSchema = z.object({
   otp: z.string(),
@@ -60,7 +61,8 @@ export default function LoginForm() {
       console.log(call);
 
       if (!call.status) {
-        navig.push("/");
+        form.setError("otp", { message: "Invalid OTP" });
+
         return;
       }
 
