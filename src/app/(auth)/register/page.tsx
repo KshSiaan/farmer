@@ -26,7 +26,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { postFetcher } from "@/lib/simplifier";
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
@@ -57,7 +57,7 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
   const [waiting, setWaiting] = useState<boolean>(false);
-  const [, setCookie] = useCookies(["token"]);
+  // const [, setCookie] = useCookies(["token"]);
   const navig = useRouter();
   const [err, setErr] = useState("");
 
@@ -91,7 +91,7 @@ export default function LoginForm() {
       }
       if (call.access_token) {
         console.log("Setting token and redirecting");
-        setCookie("token", call.access_token);
+
         navig.push("/verify_message");
       } else {
         console.log("Token not found in response");

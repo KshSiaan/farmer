@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -30,7 +31,7 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-// Define the form validation schema with Zod
+
 const formSchema = z.object({
   otp: z.string(),
 });
@@ -38,8 +39,8 @@ const formSchema = z.object({
 export default function LoginForm() {
   const [, setCookie] = useCookies(["token"]);
   const navig = useRouter();
+  const [loading, setLoading] = useState(false);
 
-  // Initialize form with React Hook Form and Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,9 +48,9 @@ export default function LoginForm() {
     },
   });
 
-  // Form submission handler
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
+      setLoading(true);
       console.log(values);
       const call = await postFetcher({
         link: "/auth/verify",
@@ -58,20 +59,25 @@ export default function LoginForm() {
       });
       console.log(call);
 
-      if (call.access_token) {
-        setCookie("token", call.access_token);
-
-        navig.push("/");
-      } else {
-        console.log("Token not found");
-      }
       if (!call.status) {
         navig.push("/");
         return;
       }
-      navig.push("/set_password");
+
+      if (call.access_token) {
+        setCookie("token", call.access_token);
+        navig.push("/");
+
+        return;
+      } else {
+        console.log("Token not found");
+      }
+
+      navig.push("/");
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -120,8 +126,9 @@ export default function LoginForm() {
               <Button
                 type="submit"
                 className="w-full bg-green-600 hover:bg-green-700 text-white"
+                disabled={loading}
               >
-                Send OTP code
+                {loading ? "Loading..." : "Send OTP code"}
               </Button>
               <Button
                 className="w-full"

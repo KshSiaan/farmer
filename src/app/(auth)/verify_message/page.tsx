@@ -14,9 +14,9 @@ export default function LoginForm() {
           <Button className="w-full" variant="farm" asChild>
             <Link href="/otp_verify">Verify OTP now</Link>
           </Button>
-          <Button className="w-full" asChild>
+          {/* <Button className="w-full" asChild>
             <Link href="/">Later</Link>
-          </Button>
+          </Button> */}
         </CardContent>
       </Card>
     </div>
